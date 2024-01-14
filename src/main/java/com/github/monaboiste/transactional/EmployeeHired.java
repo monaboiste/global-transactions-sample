@@ -15,13 +15,13 @@ public final class EmployeeHired implements DomainEvent {
 
     private final UUID eventId;
     private final Instant createdAt;
-    private final String payload;
+    private final Employee employee;
 
-    public EmployeeHired(// employee details, really should be an object
-                         String payload) {
+    public EmployeeHired(// employee details, it's an entity for now
+                         Employee employee) {
         this.eventId = UUID.randomUUID();
         this.createdAt = Instant.now();
-        this.payload = payload;
+        this.employee = employee;
     }
 
     @Override

@@ -39,7 +39,6 @@ class EmployeeEndpoint {
     RouterFunction<ServerResponse> hireEmployee() {
         return route(POST("/employees"), request -> {
             HireEmployeeCommand command = request.body(HireEmployeeCommand.class);
-            command.employeeId(UUID.randomUUID());
 
             commandDispatcher.resolve(HireEmployeeCommand.class).handle(command);
 

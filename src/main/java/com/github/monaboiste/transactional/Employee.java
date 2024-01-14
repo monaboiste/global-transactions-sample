@@ -4,17 +4,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter(AccessLevel.MODULE)
+@Getter(AccessLevel.MODULE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Employee {
+class Employee {
     @Id
     @GeneratedValue
     @Column(name = "employee_id")
@@ -28,4 +26,15 @@ public class Employee {
 
     @Column(name = "lastname")
     private String lastName;
+
+    @Column(name = "token")
+    private String token;
+
+    public void activateWith(String token) {
+        this.token = token;
+    }
+
+    public boolean hasToken() {
+        return !(token == null || token.isEmpty());
+    }
 }
