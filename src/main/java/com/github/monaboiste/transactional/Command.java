@@ -1,4 +1,6 @@
 package com.github.monaboiste.transactional;
 
-public interface Command {
+import java.io.Serializable;
+
+public interface Command extends Serializable {
 }

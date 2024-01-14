@@ -7,10 +7,9 @@ import lombok.experimental.Accessors;
 
 import java.util.UUID;
 
-@Accessors(fluent = true)
 @Getter
 @RequiredArgsConstructor
-public final class NewEmployeeCommand implements Command {
+final class HireEmployeeCommand implements Command {
     @Setter
     private UUID employeeId;
 

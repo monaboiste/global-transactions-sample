@@ -25,7 +25,7 @@ public class CommandDispatcher {
                 .collect(toMap(CommandHandler::handlingCommandClass, identity()));
     }
 
-    public <C extends Command, O> CommandHandler<C> resolve(Class<C> clazz) {
+    public <C extends Command> CommandHandler<C> resolve(Class<C> clazz) {
         @SuppressWarnings("unchecked")
         var commandHandler = ((CommandHandler<C>) commandHandlers.get(clazz));
         if (commandHandler == null) {
