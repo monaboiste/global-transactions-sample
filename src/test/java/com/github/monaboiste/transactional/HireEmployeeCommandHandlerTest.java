@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
+import java.util.concurrent.Callable;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.awaitility.Awaitility.await;
 
 @SpringBootTest
 class HireEmployeeCommandHandlerTest {
@@ -24,7 +26,13 @@ class HireEmployeeCommandHandlerTest {
 
         commandHandler.handle(command);
 
-        Employee persistedEmployee = employeeReadRepository.getById(employeeId);
-        assertThat(persistedEmployee.hasToken()).isTrue();
+        await().atMost(5, SECONDS).until(tokenIsGenerated(employeeId));
+    }
+
+    private Callable<Boolean> tokenIsGenerated(UUID employeeId) {
+        return () -> {
+            var persistedEmployee = employeeReadRepository.getById(employeeId);
+            return persistedEmployee.hasToken();
+        };
     }
 }

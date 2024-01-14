@@ -2,6 +2,7 @@ package com.github.monaboiste.transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -37,6 +38,7 @@ class EmployeeHiredEventListener implements DomainEventListener<EmployeeHired> {
     // By default, the callback is invoked after commit (AFTER_COMMIT setting). If there's no transaction running, the
     // method won't be executed.
     @TransactionalEventListener(condition = "'EmployeeHired'.equals(#event.name())")
+    @Async
     public void process(EmployeeHired event) {
         log.info("Received event [{}]", event.eventId());
         employeeActivationService.activate(event.employee());
@@ -59,6 +61,11 @@ class EmployeeHiredEventListener implements DomainEventListener<EmployeeHired> {
         }
 
         private String generateToken(Employee employee) {
+            try { // simulate latency when generating the token
+                Thread.sleep(2_000);
+            } catch (InterruptedException ignored) {
+                Thread.currentThread().interrupt();
+            }
             return String.valueOf(employee.hashCode());
         }
     }
