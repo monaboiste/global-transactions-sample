@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
@@ -45,9 +47,13 @@ class EmployeeEndpoint {
 	@Bean
 	RouterFunction<ServerResponse> createNewEmployee() {
 		return route(POST("/employees"), request -> {
-			commandDispatcher.resolve(NewEmployeeCommand.class)
-					.handle(request.body(NewEmployeeCommand.class));
-			return created(URI.create("/0")).build();
+			NewEmployeeCommand command = request.body(NewEmployeeCommand.class);
+			commandDispatcher.resolve(NewEmployeeCommand.class).handle(command);
+			URI resourceLocation = UriComponentsBuilder.newInstance()
+					.path("/employees/{employeeId}")
+					.buildAndExpand(command.employeeId())
+					.toUri();
+			return created(resourceLocation).build();
 		});
 	}
 }
