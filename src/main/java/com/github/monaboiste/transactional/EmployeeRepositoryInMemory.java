@@ -31,8 +31,8 @@ class EmployeeRepositoryInMemory implements EmployeeRepository {
     @Override
     public Employee save(Employee entity) {
         long id = idGenerator.incrementAndGet();
-        entity.setInternalId(id);
-        employees.put(entity.getEmployeeId(), entity);
+        entity.setEmployeeId(id);
+        employees.put(entity.getDomainId(), entity);
         return entity;
     }
 }

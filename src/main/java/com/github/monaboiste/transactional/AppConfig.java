@@ -1,14 +1,18 @@
 package com.github.monaboiste.transactional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
+@RequiredArgsConstructor
 public class AppConfig {
+
+    private final EmployeeRepositoryJpa employeeRepositoryJpa;
 
     @Bean
     public EmployeeRepository employeeRepository() {
-        return new EmployeeRepositoryInMemory();
+        return employeeRepositoryJpa;
     }
 
     @Bean

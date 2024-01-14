@@ -16,6 +16,7 @@ class NewEmployeeCommandHandler implements CommandHandler<NewEmployeeCommand> {
         log.info("Requested new employee");
 
         Employee newEmployee = new Employee();
+        newEmployee.setDomainId(command.employeeId());
         newEmployee.setFirstName(command.firstName());
         newEmployee.setLastName(command.lastName());
 
