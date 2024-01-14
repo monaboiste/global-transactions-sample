@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionTemplate;
+
+import java.util.function.Consumer;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,10 +28,15 @@ class HireEmployeeCommandHandler implements CommandHandler<HireEmployeeCommand> 
         newEmployee.firstName(command.firstName());
         newEmployee.lastName(command.lastName());
 
-        new TransactionTemplate(transactionManager).execute(status -> { // doesn't work with event listeners for some reason
+        transactionWithoutResults(status -> {
             employeeRepository.save(newEmployee);
             eventPublisher.publish(new EmployeeHired(newEmployee.domainId().toString()));
+        });
+    }
 
+    private void transactionWithoutResults(Consumer<TransactionStatus> action) {
+        new TransactionTemplate(transactionManager).execute(status -> {
+            action.accept(status);
             return null;
         });
     }
