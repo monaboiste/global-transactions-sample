@@ -19,7 +19,6 @@ class NewEmployeeCommandHandler implements CommandHandler<NewEmployeeCommand> {
         newEmployee.setFirstName(command.firstName());
         newEmployee.setLastName(command.lastName());
 
-        long employeeId = employeeRepository.save(newEmployee).getEmployeeId();
-        command.employeeId(employeeId);
+        employeeRepository.save(newEmployee);
     }
 }
