@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 class RestConfig {
 
     @Bean
-    public ObjectMapper objectMapper() {
+    public ObjectMapper restSerializer() {
         return JsonMapper.builder()
                 .build();
     }

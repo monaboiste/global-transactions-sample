@@ -1,6 +1,5 @@
-package com.github.monaboiste.transactional.event;
+package com.github.monaboiste.transactional.domain;
 
-import com.github.monaboiste.transactional.Employee;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -9,24 +8,32 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Getter
-@EqualsAndHashCode
 @ToString
-public final class EmployeeHired implements DomainEvent {
-    private static final String NAME = "EmployeeHired";
+@EqualsAndHashCode
+public class Hired implements Event {
 
     private final UUID eventId;
     private final Instant createdAt;
     private final Employee employee;
 
-    public EmployeeHired(// employee details, it's an entity for now
-                         Employee employee) {
+    public Hired(final Employee employee) {
         this.eventId = UUID.randomUUID();
         this.createdAt = Instant.now();
         this.employee = employee;
     }
 
     @Override
-    public String name() {
-        return NAME;
+    public Class<? extends Event> type() {
+        return Hired.class;
+    }
+
+    @Override
+    public UUID eventId() {
+        return UUID.randomUUID();
+    }
+
+    @Override
+    public Instant createdAt() {
+        return Instant.now();
     }
 }

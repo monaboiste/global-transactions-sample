@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-class EmployeeView {
+class EmployeeResource {
 
     @JsonView({Read.class})
     private UUID employeeId;

@@ -1,5 +1,3 @@
 rootProject.name = 'global-transactions-sample'
 
-include 'domain'
 include 'application'
-include 'infrastructure'
