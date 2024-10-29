@@ -1,4 +1,4 @@
-package com.github.monaboiste.transactional.domain;
+package com.github.monaboiste.transactional.domain.employee;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ class EmployeeJdbcDao implements EmployeeReadRepository, EmployeeWriteRepository
                         """,
                 Map.of("employeeId", employeeId.toString()),
                 (rs, rowNum) ->
-                        employeeFactory.create(
+                        employeeFactory.newEmployee(
                                 UUID.fromString(rs.getString("domain_id")),
                                 rs.getString("first_name"),
                                 rs.getString("last_name"),

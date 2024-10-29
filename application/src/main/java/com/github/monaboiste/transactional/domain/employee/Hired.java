@@ -1,4 +1,4 @@
-package com.github.monaboiste.transactional.domain;
+package com.github.monaboiste.transactional.domain.employee;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,12 +13,12 @@ import java.util.UUID;
 public class Hired implements Event {
 
     private final UUID eventId;
-    private final Instant createdAt;
+    private final Instant occurredAt;
     private final Employee employee;
 
     public Hired(final Employee employee) {
         this.eventId = UUID.randomUUID();
-        this.createdAt = Instant.now();
+        this.occurredAt = Instant.now();
         this.employee = employee;
     }
 
@@ -32,8 +32,7 @@ public class Hired implements Event {
         return UUID.randomUUID();
     }
 
-    @Override
-    public Instant createdAt() {
+    public Instant occurredAt() {
         return Instant.now();
     }
 }

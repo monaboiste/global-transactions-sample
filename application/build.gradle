@@ -21,6 +21,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	runtimeOnly 'com.h2database:h2'
+
 	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
 
 	compileOnly 'org.jetbrains:annotations:24.+'

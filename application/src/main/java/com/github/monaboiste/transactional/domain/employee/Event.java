@@ -1,4 +1,4 @@
-package com.github.monaboiste.transactional.domain;
+package com.github.monaboiste.transactional.domain.employee;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -14,5 +14,5 @@ public interface Event extends Serializable {
 
     UUID eventId();
 
-    Instant createdAt();
+    Instant occurredAt();
 }
