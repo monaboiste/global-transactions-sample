@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
 class JavaEventSerializer implements EventSerializer {
 
     @Override
-    public byte[] serialize(final Event event) {
+    public <T extends Snapshot> byte[] serialize(final Event<T> event) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
         try (ObjectOutputStream oos = new ObjectOutputStream(bos)) {
             oos.writeObject(event);
@@ -24,9 +24,10 @@ class JavaEventSerializer implements EventSerializer {
     }
 
     @Override
-    public Event deserialize(final byte[] bytes) {
+    @SuppressWarnings("unchecked")
+    public <T extends Snapshot> Event<T> deserialize(final byte[] bytes) {
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes))) {
-            return (Event) objectInputStream.readObject();
+            return (Event<T>) objectInputStream.readObject();
         } catch (Exception ex) {
             throw new IllegalArgumentException("Cannot deserialize event", ex);
         }

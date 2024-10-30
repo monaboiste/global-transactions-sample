@@ -3,7 +3,7 @@ package com.github.monaboiste.transactional.domain.event;
 /**
  * Represents internal (pure) domain application event.
  */
-public interface DomainEvent extends Event {
+public interface DomainEvent<T extends Snapshot> extends Event<T> {
 
     String aggregateType();
 
@@ -12,5 +12,5 @@ public interface DomainEvent extends Event {
     /**
      * @return the class of this event
      */
-    Class<? extends Event> type();
+    Class<? extends Event<T>> type();
 }

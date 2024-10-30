@@ -14,11 +14,11 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-class HireEmployeeUseCaseService implements HireEmployeeUseCase {
+class EmploymentService implements HireEmployeeUseCase {
 
-    private final PlatformTransactionManager transactionManager;
     private final EmployeeWriteRepository employeeWriteRepository;
-    private final DomainEventPublisher domainEventPublisher;
+    private final DomainEventPublisher<EmployeeSnapshot> domainEventPublisher;
+    private final PlatformTransactionManager transactionManager;
 
     @Override
     public void hire(Employee employee) {
@@ -27,8 +27,8 @@ class HireEmployeeUseCaseService implements HireEmployeeUseCase {
         var tx = new TransactionTemplate(transactionManager);
         tx.executeWithoutResult(status -> {
             employeeWriteRepository.save(employee);
-            List<DomainEvent> events = employee.flushPendingEvents();
-            domainEventPublisher.publish(new BatchDomainEvent(events));
+            List<DomainEvent<EmployeeSnapshot>> events = employee.flushPendingEvents();
+            domainEventPublisher.publish(new BatchDomainEvent<>(events));
         });
     }
 }

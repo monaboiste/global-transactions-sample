@@ -22,7 +22,7 @@ public class Employee {
 
     @ToString.Exclude
     @SuppressWarnings("squid:S2065")
-    private final transient List<DomainEvent> pendingEvents = new ArrayList<>();
+    private final transient List<DomainEvent<EmployeeSnapshot>> pendingEvents = new ArrayList<>();
 
     public Employee(EmployeeId employeeId, String firstName, String lastName, Email workEmail) {
         this(employeeId, firstName, lastName, workEmail, false);
@@ -63,7 +63,7 @@ public class Employee {
      * @return a collection of the pending events.
      */
     @UnmodifiableView
-    public List<Event> peek() {
+    public List<Event<EmployeeSnapshot>> peek() {
         return List.copyOf(pendingEvents);
     }
 
@@ -72,13 +72,13 @@ public class Employee {
      *
      * @return a collection of the pending events.
      */
-    public List<DomainEvent> flushPendingEvents() {
+    public List<DomainEvent<EmployeeSnapshot>> flushPendingEvents() {
         var returned = new ArrayList<>(pendingEvents);
         pendingEvents.clear();
         return returned;
     }
 
-    private void appendEvent(DomainEvent event) {
+    private void appendEvent(DomainEvent<EmployeeSnapshot> event) {
         if (event == null) {
             throw new IllegalArgumentException();
         }

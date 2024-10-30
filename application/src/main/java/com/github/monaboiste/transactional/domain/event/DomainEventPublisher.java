@@ -1,6 +1,6 @@
 package com.github.monaboiste.transactional.domain.event;
 
-public interface DomainEventPublisher {
+public interface DomainEventPublisher<T extends Snapshot> {
 
-    void publish(BatchDomainEvent events);
+    void publish(BatchDomainEvent<T> events);
 }

@@ -2,8 +2,8 @@ package com.github.monaboiste.transactional.domain.event;
 
 public interface EventSerializer {
 
-    byte[] serialize(Event event);
+    <T extends Snapshot> byte[] serialize(Event<T> event);
 
-    Event deserialize(byte[] bytes);
+    <T extends Snapshot> Event<T> deserialize(byte[] bytes);
 }
 

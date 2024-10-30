@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/employees")
@@ -24,7 +23,7 @@ class EmployeeApi {
 
     @PostMapping
     public ResponseEntity<Void> hire(@RequestBody EmployeeResource employeeResource) {
-        EmployeeId employeeId = new EmployeeId(UUID.randomUUID());
+        EmployeeId employeeId = new EmployeeId();
         Employee employee = new Employee(employeeId,
                 employeeResource.firstName(), employeeResource.lastName(), new Email(employeeResource.workEmail()));
         hireEmployeeUseCase.hire(employee);

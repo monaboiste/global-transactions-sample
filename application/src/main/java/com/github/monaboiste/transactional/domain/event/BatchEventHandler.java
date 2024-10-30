@@ -5,5 +5,5 @@ package com.github.monaboiste.transactional.domain.event;
  */
 public interface BatchEventHandler {
 
-    void process(BatchDomainEvent events);
+    void process(BatchDomainEvent<?> events);
 }

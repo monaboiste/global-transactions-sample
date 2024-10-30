@@ -18,7 +18,7 @@ class DomainEventJdbcDao implements DomainEventStore {
     private final PayloadSerializer serializer;
 
     @Override
-    public void save(final DomainEvent event) {
+    public <T extends Snapshot> void save(final DomainEvent<T> event) {
         log.info("Persisting event {}", event);
         String statement = """
                 insert into events(event_id, occurred_at, name, aggregate_id, aggregate_type, payload)
@@ -29,7 +29,7 @@ class DomainEventJdbcDao implements DomainEventStore {
     }
 
     @Override
-    public void saveAll(final List<DomainEvent> events) {
+    public <T extends Snapshot> void saveAll(final List<DomainEvent<T>> events) {
         log.info("Persisting events {}", events);
         String statement = """
                 insert into events(event_id, occurred_at, name, aggregate_id, aggregate_type, payload)
@@ -42,7 +42,7 @@ class DomainEventJdbcDao implements DomainEventStore {
         jdbc.batchUpdate(statement, batches);
     }
 
-    private Map<String, ? extends Serializable> eventToParams(final DomainEvent event) {
+    private Map<String, ? extends Serializable> eventToParams(final DomainEvent<?> event) {
         return Map.of(
                 "eventId", event.eventId(),
                 "occurredAt", event.occurredAt(),
@@ -53,7 +53,7 @@ class DomainEventJdbcDao implements DomainEventStore {
         );
     }
 
-    private <T> byte[] serialized(final T payload) {
+    private <T extends Snapshot> byte[] serialized(final T payload) {
         return serializer.serialize(payload);
     }
 }

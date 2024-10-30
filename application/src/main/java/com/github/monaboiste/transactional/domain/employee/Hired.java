@@ -1,37 +1,31 @@
 package com.github.monaboiste.transactional.domain.employee;
 
-import com.github.monaboiste.transactional.domain.event.Event;
 import com.github.monaboiste.transactional.domain.event.DomainEvent;
+import com.github.monaboiste.transactional.domain.event.Event;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.time.Instant;
-import java.util.Map;
 import java.util.UUID;
 
 @ToString
 @EqualsAndHashCode
-public class Hired implements DomainEvent {
+public class Hired implements DomainEvent<EmployeeSnapshot> {
 
     private final UUID eventId;
     private final Instant occurredAt;
     private final String aggregateId;
-    private final Map<String, String> employee;
+    private final EmployeeSnapshot employee;
 
     public Hired(final Employee employee) {
         this.eventId = UUID.randomUUID();
         this.occurredAt = Instant.now();
         this.aggregateId = employee.employeeId().toString();
-        this.employee = Map.of(
-                "employeeId", employee.employeeId().toString(),
-                "firstName", employee.firstName(),
-                "lastName", employee.lastName()
-        );
+        this.employee = new EmployeeSnapshot(employee);
     }
 
     @Override
-    public Class<? extends Event> type() {
+    public Class<? extends Event<EmployeeSnapshot>> type() {
         return Hired.class;
     }
 
@@ -50,9 +44,8 @@ public class Hired implements DomainEvent {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T extends Serializable> T payload() {
-        return (T) employee;
+    public EmployeeSnapshot payload() {
+        return employee;
     }
 
     @Override

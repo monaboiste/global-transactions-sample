@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface DomainEventStore {
 
-    void save(DomainEvent event);
+    <T extends Snapshot> void save(DomainEvent<T> event);
 
-    void saveAll(List<DomainEvent> events);
+    <T extends Snapshot> void saveAll(List<DomainEvent<T>> events);
 }

@@ -12,7 +12,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-class DomainEventStoreProducer implements BatchEventHandler, EventHandler<DomainEvent> {
+class DomainEventStoreProducer implements BatchEventHandler, EventHandler<DomainEvent<?>> {
 
     private final DomainEventStore domainEventStore;
 
@@ -21,7 +21,7 @@ class DomainEventStoreProducer implements BatchEventHandler, EventHandler<Domain
             classes = BatchDomainEvent.class,
             phase = TransactionPhase.BEFORE_COMMIT
     )
-    public void process(final BatchDomainEvent events) {
+    public void process(final BatchDomainEvent<?> events) {
         log.info("Processing events {}", events);
         domainEventStore.saveAll(events.domainEvents());
     }
@@ -31,7 +31,7 @@ class DomainEventStoreProducer implements BatchEventHandler, EventHandler<Domain
             classes = DomainEvent.class,
             phase = TransactionPhase.BEFORE_COMMIT
     )
-    public void process(final DomainEvent event) {
+    public void process(final DomainEvent<?> event) {
         log.info("Processing event {}", event);
         domainEventStore.save(event);
     }
