@@ -12,7 +12,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-class DomainEventStoreProducer implements BatchEventHandler {
+class DomainEventStoreProducer implements BatchEventHandler, EventHandler<DomainEvent> {
 
     private final DomainEventStore domainEventStore;
 

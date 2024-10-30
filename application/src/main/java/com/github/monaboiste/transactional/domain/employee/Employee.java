@@ -17,20 +17,28 @@ public class Employee {
 
     private String firstName;
     private String lastName;
+    private Email workEmail;
     private boolean active;
 
     @ToString.Exclude
-    private final List<DomainEvent> pendingEvents = new ArrayList<>();
+    @SuppressWarnings("squid:S2065")
+    private final transient List<DomainEvent> pendingEvents = new ArrayList<>();
 
-    public Employee(EmployeeId employeeId, String firstName, String lastName) {
-        this(employeeId, firstName, lastName, false);
+    public Employee(EmployeeId employeeId, String firstName, String lastName, Email workEmail) {
+        this(employeeId, firstName, lastName, workEmail, false);
     }
 
-    Employee(EmployeeId employeeId, String firstName, String lastName, boolean active) {
-        // assert
+    Employee(EmployeeId employeeId, String firstName, String lastName, Email workEmail, boolean active) {
+        if (employeeId == null || workEmail == null) {
+            throw new IllegalArgumentException();
+        }
+        if (firstName == null || lastName == null) {
+            throw new IllegalArgumentException(); // todo: domain exception
+        }
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.workEmail = workEmail;
         this.active = active;
 
         appendEvent(new Hired(this));
@@ -42,7 +50,9 @@ public class Employee {
     }
 
     public void rename(String firstName, String lastName) {
-        // assert
+        if (firstName == null || lastName == null) {
+            throw new IllegalArgumentException(); // todo: domain exception
+        }
         this.firstName = firstName;
         this.lastName = lastName;
     }

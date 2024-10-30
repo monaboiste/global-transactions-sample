@@ -23,7 +23,7 @@ class EmployeeJdbcDao implements EmployeeReadRepository, EmployeeWriteRepository
     @Override
     public Optional<Employee> findById(final UUID employeeId) {
         String statement = """
-                select employee_id, first_name, last_name, is_active from employees
+                select employee_id, first_name, last_name, work_email, is_active from employees
                 where employee_id = :employeeId
                 """;
         var params = Map.of("employeeId", employeeId.toString());
@@ -35,8 +35,8 @@ class EmployeeJdbcDao implements EmployeeReadRepository, EmployeeWriteRepository
     public void save(final Employee employee) {
         log.info("Persisting employee {}", employee.employeeId());
         String statement = """
-                insert into employees(employee_id, first_name, last_name, is_active) 
-                values (:employeeId, :firstName, :lastName, :active)
+                insert into employees(employee_id, first_name, last_name, work_email, is_active) 
+                values (:employeeId, :firstName, :lastName, :workEmail, :active)
                 """;
         var params = employeeToParams(employee);
         jdbc.update(statement, params);
@@ -47,6 +47,7 @@ class EmployeeJdbcDao implements EmployeeReadRepository, EmployeeWriteRepository
                 "employeeId", employee.employeeId().toString(),
                 "firstName", employee.firstName(),
                 "lastName", employee.lastName(),
+                "workEmail", employee.workEmail().toString(),
                 "active", employee.active()
         );
     }
@@ -56,6 +57,7 @@ class EmployeeJdbcDao implements EmployeeReadRepository, EmployeeWriteRepository
                     new EmployeeId(UUID.fromString(rs.getString("employee_id"))),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
+                    new Email(rs.getString("work_email"), false),
                     rs.getBoolean("is_active")
             );
 }

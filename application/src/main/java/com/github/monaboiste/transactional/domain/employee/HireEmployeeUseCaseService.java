@@ -21,7 +21,7 @@ class HireEmployeeUseCaseService implements HireEmployeeUseCase {
     private final DomainEventPublisher domainEventPublisher;
 
     @Override
-    public void hire(Employee employee) { // todo: use a command ?
+    public void hire(Employee employee) {
         log.info("Hiring {}", employee.employeeId());
 
         var tx = new TransactionTemplate(transactionManager);

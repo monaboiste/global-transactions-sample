@@ -1,5 +1,6 @@
 package com.github.monaboiste.transactional.api.rest.employee;
 
+import com.github.monaboiste.transactional.domain.employee.Email;
 import com.github.monaboiste.transactional.domain.employee.Employee;
 import com.github.monaboiste.transactional.domain.employee.EmployeeId;
 import com.github.monaboiste.transactional.domain.employee.HireEmployeeUseCase;
@@ -25,7 +26,7 @@ class EmployeeApi {
     public ResponseEntity<Void> hire(@RequestBody EmployeeResource employeeResource) {
         EmployeeId employeeId = new EmployeeId(UUID.randomUUID());
         Employee employee = new Employee(employeeId,
-                employeeResource.firstName(), employeeResource.lastName());
+                employeeResource.firstName(), employeeResource.lastName(), new Email(employeeResource.workEmail()));
         hireEmployeeUseCase.hire(employee);
 
         URI location = UriComponentsBuilder
