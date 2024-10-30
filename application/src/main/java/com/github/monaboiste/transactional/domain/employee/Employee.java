@@ -1,43 +1,77 @@
 package com.github.monaboiste.transactional.domain.employee;
 
-import java.util.UUID;
+import com.github.monaboiste.transactional.domain.event.DomainEvent;
+import com.github.monaboiste.transactional.domain.event.Event;
+import lombok.Getter;
+import lombok.ToString;
+import org.jetbrains.annotations.UnmodifiableView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@ToString
+@Getter
 public class Employee {
 
-    private final UUID domainId;
+    private final EmployeeId employeeId;
 
     private String firstName;
     private String lastName;
     private boolean active;
 
-    Employee(String firstName, String lastName) {
-        this(UUID.randomUUID(), firstName, lastName, false);
+    @ToString.Exclude
+    private final List<DomainEvent> pendingEvents = new ArrayList<>();
+
+    public Employee(EmployeeId employeeId, String firstName, String lastName) {
+        this(employeeId, firstName, lastName, false);
     }
 
-    Employee(UUID domainId, String firstName, String lastName, boolean active) {
-        this.domainId = domainId;
+    Employee(EmployeeId employeeId, String firstName, String lastName, boolean active) {
+        // assert
+        this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.active = active;
+
+        appendEvent(new Hired(this));
     }
 
     public void activate() {
+        // append event
         this.active = true;
     }
 
-    public boolean active() {
-        return active;
+    public void rename(String firstName, String lastName) {
+        // assert
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    public UUID domainId() {
-        return domainId;
+    /**
+     * Return a view of pending events.
+     *
+     * @return a collection of the pending events.
+     */
+    @UnmodifiableView
+    public List<Event> peek() {
+        return List.copyOf(pendingEvents);
     }
 
-    public String firstName() {
-        return firstName;
+    /**
+     * Return pending events then clear them.
+     *
+     * @return a collection of the pending events.
+     */
+    public List<DomainEvent> flushPendingEvents() {
+        var returned = new ArrayList<>(pendingEvents);
+        pendingEvents.clear();
+        return returned;
     }
 
-    public String lastName() {
-        return lastName;
+    private void appendEvent(DomainEvent event) {
+        if (event == null) {
+            throw new IllegalArgumentException();
+        }
+        pendingEvents.add(event);
     }
 }

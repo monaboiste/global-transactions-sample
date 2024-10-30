@@ -1,18 +1,15 @@
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:employee
-    username: SA
-    password:
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: create-drop
-    open-in-view: false
-    show-sql: true
-    properties:
-      hibernate.format_sql: true
+    url: jdbc:p6spy:h2:file:${user.dir}/data/tx
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    username: sa
+    password: sa
   h2:
     console:
       enabled: true
       path: /h2-console
+  liquibase:
+    change-log: classpath:db/changelog.yml
+logging:
+  level:
+    org.springframework.transaction: DEBUG
