@@ -14,21 +14,31 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-class EmploymentService implements HireEmployeeUseCase {
+class EmployeeActivationService implements ActivateEmployeeUseCase {
 
+    private final EmployeeReadRepository employeeReadRepository;
     private final EmployeeWriteRepository employeeWriteRepository;
     private final DomainEventPublisher<EmployeeSnapshot> domainEventPublisher;
     private final PlatformTransactionManager transactionManager;
 
     @Override
-    public void hire(Employee employee) {
-        log.info("Hiring {}", employee.employeeId());
+    public void activate(EmployeeId employeeId) {
+        log.info("Activating {}", employeeId);
 
         var tx = new TransactionTemplate(transactionManager);
         tx.executeWithoutResult(status -> {
-            employee.hire();
-            employeeWriteRepository.save(employee);
-            List<DomainEvent<EmployeeSnapshot>> events = employee.flushPendingEvents();
+            var potentialEmployee = employeeReadRepository.findById(employeeId);
+            if (potentialEmployee.isEmpty()) {
+                throw new RuntimeException(); // todo: domain event
+            }
+            Employee newEmployee = potentialEmployee.get();
+            if (newEmployee.active()) {
+                return;
+            }
+            newEmployee.activate();
+            employeeWriteRepository.save(newEmployee);
+
+            List<DomainEvent<EmployeeSnapshot>> events = newEmployee.flushPendingEvents();
             domainEventPublisher.publish(new BatchDomainEvent<>(events));
         });
     }

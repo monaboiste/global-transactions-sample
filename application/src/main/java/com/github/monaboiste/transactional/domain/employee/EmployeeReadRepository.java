@@ -5,5 +5,5 @@ import java.util.UUID;
 
 public interface EmployeeReadRepository {
 
-    Optional<Employee> findById(UUID employeeId);
+    Optional<Employee> findById(EmployeeId employeeId);
 }

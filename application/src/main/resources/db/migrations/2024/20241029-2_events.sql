@@ -1,12 +1,13 @@
 --liquibase formatted sql
 --changeset monaboiste:events-init
 
-CREATE TABLE IF NOT EXISTS events (
-    in_event_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    event_id UUID NOT NULL UNIQUE,
-    name VARCHAR(255) NOT NULL,
-    occurred_at TIMESTAMP NOT NULL,
-    aggregate_id VARCHAR(255) NOT NULL,
-    aggregate_type VARCHAR(255) NOT NULL,
-    payload BINARY LARGE OBJECT
+create table if not exists events
+(
+    in_event_id    bigint       not null primary key auto_increment,
+    event_id       uuid         not null unique,
+    name           varchar(255) not null,
+    occurred_at    timestamp    not null,
+    aggregate_id   varchar(255) not null,
+    aggregate_type varchar(255) not null,
+    payload        binary large object
 );

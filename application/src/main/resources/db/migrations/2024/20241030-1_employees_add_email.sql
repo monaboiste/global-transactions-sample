@@ -1,7 +1,11 @@
 --liquibase formatted sql
 --changeset monaboiste:employees-add-email
 
-ALTER TABLE employees ADD COLUMN work_email VARCHAR(255);
-UPDATE employees SET work_email='unknown@unknown.com' WHERE work_email IS NULL;
-ALTER TABLE employees ALTER COLUMN work_email SET NOT NULL;
+alter table employees add column work_email varchar(255);
+
+update employees
+set work_email='unknown@unknown.com'
+where work_email is null;
+
+alter table employees alter column work_email set not null;
 --rollback ALTER TABLE employees DROP COLUMN work_email;

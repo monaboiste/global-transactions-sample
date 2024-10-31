@@ -1,10 +1,11 @@
 --liquibase formatted sql
 --changeset monaboiste:employees-init
 
-CREATE TABLE IF NOT EXISTS employees (
-    in_employee_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    employee_id UUID NOT NULL UNIQUE,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    is_active BOOLEAN DEFAULT false
+create table if not exists employees
+(
+    in_employee_id bigint       not null primary key auto_increment,
+    employee_id    uuid         not null unique,
+    first_name     varchar(255) not null,
+    last_name      varchar(255) not null,
+    is_active      boolean default false
 );

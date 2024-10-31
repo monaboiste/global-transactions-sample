@@ -40,13 +40,15 @@ public class Employee {
         this.lastName = lastName;
         this.workEmail = workEmail;
         this.active = active;
+    }
 
+    public void hire() {
         appendEvent(new Hired(this));
     }
 
     public void activate() {
-        // append event
         this.active = true;
+        appendEvent(new EmployeeActivated(this));
     }
 
     public void rename(String firstName, String lastName) {
