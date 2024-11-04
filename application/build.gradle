@@ -1,42 +1,55 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.1'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id "java"
+	id "groovy"
+	id "org.springframework.boot" version "3.2.1"
+	id "io.spring.dependency-management" version "1.1.4"
+	id "io.freefair.lombok" version "8.10.2"
+
 }
 
-group = 'com.github.monaboiste'
-version = '0.0.1-SNAPSHOT'
+group = "com.github.monaboiste"
+version = "0.0.1-SNAPSHOT"
 
 java {
-	sourceCompatibility = '21'
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
 }
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	developmentOnly "org.springframework.boot:spring-boot-devtools"
+	compileOnly "org.jetbrains:annotations:24.+"
 
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	implementation 'org.liquibase:liquibase-core'
-	runtimeOnly 'com.h2database:h2'
-	implementation 'p6spy:p6spy:3.9.1'
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
+	implementation "org.springframework.boot:spring-boot-starter-web"
 
-	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+	implementation "org.springframework.boot:spring-boot-starter-jdbc"
+	implementation "org.liquibase:liquibase-core"
+	runtimeOnly "com.h2database:h2"
+	implementation "p6spy:p6spy:3.9.1"
 
-	compileOnly 'org.jetbrains:annotations:24.+'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation "io.micrometer:micrometer-tracing-bridge-brave"
+
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	testImplementation platform("org.spockframework:spock-bom:2.4-M4-groovy-4.0")
+	testImplementation "org.spockframework:spock-core"
+	testImplementation "org.spockframework:spock-spring"
+	testImplementation "org.jeasy:easy-random-core:5.0.0"
 }
 
 tasks.withType(JavaCompile) {
 	options.compilerArgs << "-Xlint:unchecked"
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
+
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
 }

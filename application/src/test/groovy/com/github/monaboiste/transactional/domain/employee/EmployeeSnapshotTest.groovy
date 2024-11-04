@@ -1,10 +1,10 @@
-package com.github.monaboiste.transactional.domain.employee;
+package com.github.monaboiste.transactional.domain.employee
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import com.github.monaboiste.transactional.util.RandomObject
+import org.assertj.core.api.Assertions
+import spock.lang.Specification
 
-import java.util.UUID;
-import java.util.function.BiPredicate;
+import java.util.function.BiPredicate
 
 /**
  * Control test to verify, whenever we're including all necessary
@@ -13,23 +13,17 @@ import java.util.function.BiPredicate;
  * The test does not check the mapping itself - the sole purpose is to make
  * the developer aware of what we publish in the events.
  */
-class EmployeeSnapshotTest {
+class EmployeeSnapshotTest extends Specification {
 
-    @Test
-    void includes_all_relevant_fields_in_snapshot() {
-        Employee employee = new Employee(
-                new EmployeeId(UUID.nameUUIDFromBytes(new byte[]{0})),
-                "Joe",
-                "Doe",
-                new Email("xx@xx.com"),
-                false,
-                "0"
-        );
+    def "should include all relevant fields in snapshot"() {
+        given:
+        def employee = RandomObject.generate(Employee.class)
+        def ignoringFields = new String[]{"pendingEvents"};
 
-        var ignoringFields = new String[]{"pendingEvents"};
+        when:
+        def snapshot = new EmployeeSnapshot(employee)
 
-        EmployeeSnapshot snapshot = new EmployeeSnapshot(employee);
-
+        then:
         // noinspection AssertBetweenInconvertibleTypes
         Assertions
                 .assertThat(employee)
@@ -48,7 +42,7 @@ class EmployeeSnapshotTest {
             if (lhs == null || rhs == null) {
                 return false;
             }
-            return lhs.toString().equals(rhs);
-        };
+            return lhs.toString() == rhs;
+        }
     }
 }

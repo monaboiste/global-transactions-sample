@@ -38,4 +38,5 @@ out/
 
 ### Database and db logs ###
 /data
+/**/data
 spy.log
