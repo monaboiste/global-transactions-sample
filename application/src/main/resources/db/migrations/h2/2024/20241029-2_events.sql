@@ -11,6 +11,6 @@ create table if not exists events
     aggregate_type varchar(255) not null,
     payload        binary large object,
 
-    constraint events_pk primary key (in_event_id) index events_ix_in_event_id,
+    constraint events_pk primary key (in_event_id),
     constraint events_ak_event_id unique (event_id)
 );

@@ -20,7 +20,7 @@ public class EmployeeActivated implements DomainEvent<EmployeeSnapshot> {
     public EmployeeActivated(final Employee employee) {
         this.eventId = UUID.randomUUID();
         this.occurredAt = Instant.now();
-        this.aggregateId = employee.employeeId().toString();
+        this.aggregateId = employee.employeeId().value().toString();
         this.employee = new EmployeeSnapshot(employee);
     }
 

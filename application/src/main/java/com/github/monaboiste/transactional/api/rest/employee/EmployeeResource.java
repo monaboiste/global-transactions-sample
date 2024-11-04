@@ -25,6 +25,12 @@ class EmployeeResource {
     @JsonView({Read.class, Write.class})
     private String workEmail;
 
+    @JsonView({Read.class})
+    private boolean active;
+
+    @JsonView({Read.class})
+    private String version;
+
     interface Read {
     }
 

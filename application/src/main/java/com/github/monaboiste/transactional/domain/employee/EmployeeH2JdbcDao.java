@@ -13,11 +13,11 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Component
-class EmployeeJdbcDao implements EmployeeReadRepository, EmployeeWriteRepository {
+class EmployeeH2JdbcDao implements EmployeeReadRepository, EmployeeWriteRepository {
 
     private final NamedParameterJdbcTemplate jdbc;
 
-    EmployeeJdbcDao(final NamedParameterJdbcTemplate jdbc) {
+    EmployeeH2JdbcDao(final NamedParameterJdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }
 
@@ -42,14 +42,28 @@ class EmployeeJdbcDao implements EmployeeReadRepository, EmployeeWriteRepository
     private void upsertWithOptimisticLocking(final Employee employee) {
         log.info("Persisting employee {}", employee.employeeId());
         String statement = """
-                update employees
-                set first_name = :firstName,
-                    last_name = :lastName,
-                    work_email = :workEmail,
-                    is_active = :active,
-                    tcn = tcn + 1
-                where employee_id = :employeeId
-                and tcn = :currentVersion
+                merge into employees e using dual
+                on e.employee_id = :employeeId
+                   when not matched then
+                    insert (employee_id,
+                            first_name,
+                            last_name,
+                            is_active,
+                            work_email,
+                            tcn)
+                       values (:employeeId,
+                            :firstName,
+                            :lastName,
+                            :active,
+                            :workEmail,
+                            :tcn)
+                when matched and e.tcn = :tcn then
+                    update
+                    set e.first_name = :firstName,
+                        e.last_name  = :lastName,
+                        e.work_email = :workEmail,
+                        e.is_active  = :active,
+                        e.tcn        = e.tcn + 1
                 """;
         var params = employeeToParams(employee);
         int rowsAffected = jdbc.update(statement, params);

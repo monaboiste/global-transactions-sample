@@ -9,6 +9,6 @@ create table if not exists employees
     last_name      varchar(255) not null,
     is_active      boolean default false,
 
-    constraint employees_pk primary key (in_employee_id) index employees_ix_in_employee_id,
+    constraint employees_pk primary key (in_employee_id),
     constraint employees_ak_employee_id unique (employee_id)
 );

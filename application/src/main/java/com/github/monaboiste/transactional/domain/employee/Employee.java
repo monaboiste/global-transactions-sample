@@ -10,25 +10,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ToString
-@Getter
 public class Employee {
 
-    private final EmployeeId employeeId;
+    @Getter private final EmployeeId employeeId;
 
-    private String firstName;
-    private String lastName;
-    private Email workEmail;
-    private boolean active;
+    @Getter private String firstName;
+    @Getter private String lastName;
+    @Getter private Email workEmail;
+    @Getter private boolean active;
+
+    /**
+     * Version field to support optimistic locking mechanism.
+     * TODO: switch back to (AccessLevel.MODULE)
+     */
+    @Getter private String version;
 
     @ToString.Exclude
     @SuppressWarnings("squid:S2065")
     private final transient List<DomainEvent<EmployeeSnapshot>> pendingEvents = new ArrayList<>();
 
     public Employee(EmployeeId employeeId, String firstName, String lastName, Email workEmail) {
-        this(employeeId, firstName, lastName, workEmail, false);
+        this(employeeId, firstName, lastName, workEmail, false, "0");
     }
 
-    Employee(EmployeeId employeeId, String firstName, String lastName, Email workEmail, boolean active) {
+    Employee(EmployeeId employeeId, String firstName, String lastName, Email workEmail, boolean active,
+             String version) {
         if (employeeId == null || workEmail == null) {
             throw new IllegalArgumentException();
         }
@@ -40,6 +46,7 @@ public class Employee {
         this.lastName = lastName;
         this.workEmail = workEmail;
         this.active = active;
+        this.version = version;
     }
 
     public void hire() {

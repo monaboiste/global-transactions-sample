@@ -8,4 +8,4 @@ set work_email='unknown@unknown.com'
 where work_email is null;
 
 alter table employees alter column work_email set not null;
---rollback ALTER TABLE employees DROP COLUMN work_email;
+--rollback alter table employees drop column work_email;

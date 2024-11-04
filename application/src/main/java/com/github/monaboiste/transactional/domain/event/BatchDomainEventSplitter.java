@@ -10,7 +10,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-class BatchDomainEventDispenser implements BatchEventHandler {
+class BatchDomainEventSplitter implements BatchEventHandler {
 
     private final ApplicationEventPublisher applicationEventPublisher;
 
@@ -20,7 +20,7 @@ class BatchDomainEventDispenser implements BatchEventHandler {
             phase = TransactionPhase.AFTER_COMMIT
     )
     public void process(BatchDomainEvent<?> events) {
-        log.info("Dispense events...");
+        log.info("Splitting events...");
         events.forEach(applicationEventPublisher::publishEvent);
     }
 }
