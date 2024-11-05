@@ -1,0 +1,24 @@
+plugins {
+    id("org.springframework.boot")
+}
+
+dependencies {
+    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // Tracing
+    implementation("io.micrometer:micrometer-tracing-bridge-brave")
+}
+
+/*
+ * Properties expansion.
+ * Note: Spring place holders must be escaped as follows: '\${springProperty}'.
+ * See: https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html#howto.properties-and-configuration.expand-properties.gradle
+ */
+processResources {
+    filesMatching("**/application*.yml") {
+        expand(project.properties)
+    }
+}

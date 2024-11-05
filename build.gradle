@@ -1,0 +1,16 @@
+plugins {
+    id("idea")
+    id("project-dependency-lint-conventions")
+}
+
+idea {
+    module {
+        /*
+         * Downloading sources from Intellij does not work
+         * without these properties. Set both to `true` and
+         * reload the project to download all sources.
+         */
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}

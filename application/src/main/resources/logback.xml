@@ -1,0 +1,29 @@
+<configuration>
+    <springProperty scope="context"
+                    name="service_name"
+                    source="info.application.name"/>
+
+    <springProperty scope="context"
+                    name="service_version"
+                    source="info.application.version"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <timeZone>UTC</timeZone>
+            <mdcKeyFieldName>traceId=trace_id</mdcKeyFieldName>
+            <mdcKeyFieldName>spanId=span_id</mdcKeyFieldName>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>20</discardingThreshold>
+        <queueSize>512</queueSize>
+        <includeCallerData>false</includeCallerData>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="STDOUT"/>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="ASYNC"/>
+    </root>
+</configuration>

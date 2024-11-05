@@ -1,10 +1,9 @@
 package com.github.monaboiste.transactional.domain.employee
 
+import com.github.monaboiste.transactional.util.Comparators
 import com.github.monaboiste.transactional.util.RandomObject
 import org.assertj.core.api.Assertions
 import spock.lang.Specification
-
-import java.util.function.BiPredicate
 
 /**
  * Control test to verify, whenever we're including all necessary
@@ -16,33 +15,20 @@ import java.util.function.BiPredicate
 class EmployeeSnapshotTest extends Specification {
 
     def "should include all relevant fields in snapshot"() {
-        given:
+        given: "an employee object"
         def employee = RandomObject.generate(Employee.class)
-        def ignoringFields = new String[]{"pendingEvents"};
+        def ignoringFields = new String[]{"pendingEvents"}
 
-        when:
+        when: "instantiating a snapshot of the object"
         def snapshot = new EmployeeSnapshot(employee)
 
-        then:
+        then: "all relevant fields should be present in the snapshot"
         // noinspection AssertBetweenInconvertibleTypes
         Assertions
                 .assertThat(employee)
                 .usingRecursiveComparison()
                 .ignoringFields(ignoringFields)
-                .withEqualsForFields(toStringBasedComparator(), "employeeId", "workEmail")
-                .isEqualTo(snapshot);
-    }
-
-
-    private static <T> BiPredicate<T, String> toStringBasedComparator() {
-        return (lhs, rhs) -> {
-            if (lhs == null && rhs == null) {
-                return true;
-            }
-            if (lhs == null || rhs == null) {
-                return false;
-            }
-            return lhs.toString() == rhs;
-        }
+                .withEqualsForFields(Comparators.toStringBasedComparator(), "employeeId", "workEmail")
+                .isEqualTo(snapshot)
     }
 }

@@ -1,0 +1,27 @@
+plugins {
+    id("idea")
+    id("java")
+    id("io.freefair.lombok")
+
+    id("java-logging-conventions")
+}
+
+// Projects will have the same group by the convention
+group = "com.github.monaboiste.global-transactions-sample"
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get()))
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs
+            << "-Xlint:unchecked"
+            << "-Xlint:deprecation"
+}
+
+dependencies {
+    // Dev
+    compileOnly(libs.annotations)
+}

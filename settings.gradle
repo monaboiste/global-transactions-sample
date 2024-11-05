@@ -1,3 +1,11 @@
-rootProject.name = 'global-transactions-sample'
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
 
-include 'application'
+rootProject.name = "global-transactions-sample"
+
+include "application"
