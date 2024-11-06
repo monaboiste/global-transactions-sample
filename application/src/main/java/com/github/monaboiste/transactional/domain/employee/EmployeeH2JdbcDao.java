@@ -57,13 +57,13 @@ class EmployeeH2JdbcDao implements EmployeeReadRepository, EmployeeWriteReposito
                             :active,
                             :workEmail,
                             :tcn)
-                when matched and e.tcn = :tcn then
+                when matched and e.tcn < :tcn then
                     update
                     set e.first_name = :firstName,
                         e.last_name  = :lastName,
                         e.work_email = :workEmail,
                         e.is_active  = :active,
-                        e.tcn        = e.tcn + 1
+                        e.tcn        = e.tcn
                 """;
         var params = employeeToParams(employee);
         int rowsAffected = jdbc.update(statement, params);
@@ -90,6 +90,6 @@ class EmployeeH2JdbcDao implements EmployeeReadRepository, EmployeeWriteReposito
                     rs.getString("last_name"),
                     new Email(rs.getString("work_email"), false),
                     rs.getBoolean("is_active"),
-                    String.valueOf(rs.getInt("tcn"))
+                    rs.getInt("tcn")
             );
 }

@@ -1,15 +1,10 @@
 package com.github.monaboiste.transactional.domain.employee;
 
-import com.github.monaboiste.transactional.domain.event.BatchDomainEvent;
-import com.github.monaboiste.transactional.domain.event.DomainEvent;
-import com.github.monaboiste.transactional.domain.event.DomainEventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -17,7 +12,6 @@ import java.util.List;
 class EmploymentService implements HireEmployeeUseCase {
 
     private final EmployeeWriteRepository employeeWriteRepository;
-    private final DomainEventPublisher<EmployeeSnapshot> domainEventPublisher;
     private final PlatformTransactionManager transactionManager;
 
     @Override
@@ -28,8 +22,6 @@ class EmploymentService implements HireEmployeeUseCase {
         tx.executeWithoutResult(status -> {
             employee.hire();
             employeeWriteRepository.save(employee);
-            List<DomainEvent<EmployeeSnapshot>> events = employee.flushPendingEvents();
-            domainEventPublisher.publish(new BatchDomainEvent<>(events));
         });
     }
 }

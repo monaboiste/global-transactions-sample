@@ -12,29 +12,28 @@ import java.util.List;
 @ToString
 public class Employee {
 
-    @Getter private final EmployeeId employeeId;
-
-    @Getter private String firstName;
-    @Getter private String lastName;
-    @Getter private Email workEmail;
-    @Getter private boolean active;
-
-    /**
-     * Version field to support optimistic locking mechanism.
-     * TODO: switch back to (AccessLevel.MODULE)
-     */
-    @Getter private String version;
-
+    @Getter
+    private final EmployeeId employeeId;
     @ToString.Exclude
     @SuppressWarnings("squid:S2065")
     private final transient List<DomainEvent<EmployeeSnapshot>> pendingEvents = new ArrayList<>();
+    @Getter
+    private String firstName;
+    @Getter
+    private String lastName;
+    @Getter
+    private Email workEmail;
+    @Getter
+    private boolean active;
+
+    private int version;
 
     public Employee(EmployeeId employeeId, String firstName, String lastName, Email workEmail) {
-        this(employeeId, firstName, lastName, workEmail, false, "0");
+        this(employeeId, firstName, lastName, workEmail, false, -1);
     }
 
     Employee(EmployeeId employeeId, String firstName, String lastName, Email workEmail, boolean active,
-             String version) {
+             int version) {
         if (employeeId == null || workEmail == null) {
             throw new IllegalArgumentException();
         }
@@ -53,6 +52,13 @@ public class Employee {
         appendEvent(new Hired(this));
     }
 
+    private void appendEvent(DomainEvent<EmployeeSnapshot> event) {
+        if (event == null) {
+            throw new IllegalArgumentException();
+        }
+        pendingEvents.add(event);
+    }
+
     public void activate() {
         this.active = true;
         appendEvent(new EmployeeActivated(this));
@@ -67,30 +73,43 @@ public class Employee {
     }
 
     /**
+     * Version field to support optimistic locking mechanism
+     * - leaked persistence concerns into domain model.
+     * TODO: switch back to private-package
+     */
+    public String version() {
+        return String.valueOf(version);
+    }
+
+    /**
      * Return a view of pending events.
      *
      * @return a collection of the pending events.
      */
     @UnmodifiableView
-    public List<Event<EmployeeSnapshot>> peek() {
+    public List<Event<EmployeeSnapshot>> peekPendingEvents() {
         return List.copyOf(pendingEvents);
     }
 
     /**
-     * Return pending events then clear them.
+     * Increments {@code this} aggregate's version and flushes pending events
+     * effectively marking all uncommited changes as commited.
+     * <p>
+     * <b>
+     * Each transaction, which mutates {@code this} state should invoke
+     * {@code flushPendingEvents} method before commiting the changes.
+     * </b>
      *
-     * @return a collection of the pending events.
+     * @return a collection of the pending events (commited changes).
      */
-    public List<DomainEvent<EmployeeSnapshot>> flushPendingEvents() {
+    List<DomainEvent<EmployeeSnapshot>> flushPendingEvents() {
+        incrementVersion();
         var returned = new ArrayList<>(pendingEvents);
         pendingEvents.clear();
         return returned;
     }
 
-    private void appendEvent(DomainEvent<EmployeeSnapshot> event) {
-        if (event == null) {
-            throw new IllegalArgumentException();
-        }
-        pendingEvents.add(event);
+    private void incrementVersion() {
+        version++;
     }
 }

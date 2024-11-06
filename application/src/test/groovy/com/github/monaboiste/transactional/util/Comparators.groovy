@@ -1,20 +1,20 @@
-package com.github.monaboiste.transactional.util;
+package com.github.monaboiste.transactional.util
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.AccessLevel
+import lombok.NoArgsConstructor
 
-import java.util.function.BiPredicate;
+import java.util.function.BiPredicate
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class Comparators {
 
-    static <T> BiPredicate<T, String> toStringBasedComparator() {
+    static <T> BiPredicate<T, String> stringified() {
         return (lhs, rhs) -> {
             if (lhs == null && rhs == null) {
-                return true;
+                return true
             }
             if (lhs == null || rhs == null) {
-                return false;
+                return false
             }
             return lhs.toString() == rhs
         }

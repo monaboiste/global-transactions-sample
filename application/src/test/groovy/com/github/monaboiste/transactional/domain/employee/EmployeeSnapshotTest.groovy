@@ -28,7 +28,11 @@ class EmployeeSnapshotTest extends Specification {
                 .assertThat(employee)
                 .usingRecursiveComparison()
                 .ignoringFields(ignoringFields)
-                .withEqualsForFields(Comparators.toStringBasedComparator(), "employeeId", "workEmail")
+                .withEqualsForFields(Comparators.stringified(),
+                        "version",
+                        "employeeId",
+                        "workEmail"
+                )
                 .isEqualTo(snapshot)
     }
 }
