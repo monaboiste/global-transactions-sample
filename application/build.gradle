@@ -1,9 +1,10 @@
 plugins {
 	id("java-conventions")
-	id("java-project-publishing-conventions")
-	id("java-checks-conventions")
 	id("spring-boot-conventions")
 	id("groovy-testing-conventions")
+
+	id("java-project-publishing-conventions")
+	id("java-checks-conventions")
 }
 
 dependencies {

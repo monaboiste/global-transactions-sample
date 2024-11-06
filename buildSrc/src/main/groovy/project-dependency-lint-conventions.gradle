@@ -1,11 +1,45 @@
-gradle.rootProject {
-    /*
-     * Nebula lint plugin notes:
-     * - the plugin can be only applied on the root level
-     */
-    apply plugin: "nebula.lint"
+plugins {
+    id("com.autonomousapps.dependency-analysis")
+}
 
-    gradleLint {
-        rules = ["unused-dependency"]
+subprojects {
+        def enabled = (project.findProperty("dependency-lint-enabled") ?: "true").toBoolean()
+        if (enabled) {
+            apply plugin: "com.autonomousapps.dependency-analysis"
+
+            tasks.register('dependency-print-lint') {
+                group("verification")
+                description("Run dependency analysis")
+
+                dependsOn(tasks.projectHealth)
+            }
+        }
+}
+
+/*
+ * Some issues may be false-positive, extend this configuration if necessary.
+ * Docs: https://github.com/autonomousapps/dependency-analysis-gradle-plugin/wiki/Customizing-plugin-behavior
+ */
+dependencyAnalysis {
+    issues {
+        all {
+            structure {
+                bundle("springframework") {
+                    include("org.springframework.*")
+                    // jackson is shipped with springframework.boot bundle
+                    includeDependency("com.fasterxml.jackson.core:jackson-annotations")
+                    includeDependency("com.fasterxml.jackson.core:jackson-databind")
+                }
+            }
+        }
     }
+}
+
+tasks.register('dependency-lint') {
+    group("verification")
+    description("Run dependency analysis")
+
+    dependsOn(tasks.buildHealth)
+
+    // reports location defaults to "${rootDir}/build/reports/dependency-analysis/build-health-report.txt"
 }

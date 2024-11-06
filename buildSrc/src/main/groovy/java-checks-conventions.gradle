@@ -3,19 +3,40 @@ plugins {
     id("name.remal.sonarlint")
 }
 
+/*
+ * Docs: https://github.com/remal-gradle-plugins/sonarlint?tab=readme-ov-file#configuration
+ */
 sonarLint {
     ignoreFailures = true
     isGeneratedCodeIgnored = false
     ignoredPaths.add("${rootDir}/buildSrc/**")
 
-    // reports location defaults to layout.buildDirectory.dir("${project.name}/reports/sonarlint")
+    logging {
+        withDescription = false // Hide rule descriptions from console output
+        hideWarnings = true     // To hide warnings produced by this plugin
+    }
 }
 
-tasks.register("lint") {
-    group "verification"
-    description "Run SonarLint checks without SonarQube server"
+/*
+ * Workaround to ignore sonarlintMain console output.
+ */
+tasks.register('lint', Exec) {
+    group("verification")
+    description("Run SonarLint checks without SonarQube server")
 
-    dependsOn(tasks.sonarlintMain)
+    workingDir(rootDir)
+    commandLine("./gradlew", "sonarlintMain")
+
+    doFirst {
+        standardOutput = new FileOutputStream("/dev/null")
+        errorOutput = new FileOutputStream("/dev/null")
+    }
+
+    doLast {
+        // reports location defaults to ${projectDir}/build/reports/sonarlint
+        def reportLocation = "file://${projectDir}/build/reports/sonarlint/sonarlintMain/sonarlintMain.html"
+        logger.lifecycle("Lint reports available at location: ${reportLocation}")
+    }
 }
 
 tasks.check.dependsOn(tasks.lint)

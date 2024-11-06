@@ -4,12 +4,13 @@ plugins {
 }
 
 dependencies {
+    testImplementation(libs.groovy)
     testImplementation(platform(libs.spock.bom))
     testImplementation(libs.spock.core)
 }
 
 if (plugins.hasPlugin("spring-boot-conventions")) {
     dependencies {
-        testImplementation(libs.spock.spring)
+        testRuntimeOnly(libs.spock.spring)
     }
 }
