@@ -1,4 +1,4 @@
-package com.github.monaboiste.transactional.domain.employee;
+package com.github.monaboiste.transactional.domain;
 
 import java.util.regex.Pattern;
 

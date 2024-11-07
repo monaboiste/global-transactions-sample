@@ -1,10 +1,12 @@
 package com.github.monaboiste.transactional.domain.employee;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.UUID;
 
 @EqualsAndHashCode
+@Getter
 public final class EmployeeId {
 
     private final UUID value;
@@ -19,10 +21,6 @@ public final class EmployeeId {
 
     @Override
     public String toString() {
-        return value().toString();
-    }
-
-    public UUID value() {
-        return value;
+        return value.toString();
     }
 }

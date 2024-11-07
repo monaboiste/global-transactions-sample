@@ -1,5 +1,6 @@
 package com.github.monaboiste.transactional.domain.employee;
 
+import com.github.monaboiste.transactional.domain.Email;
 import com.github.monaboiste.transactional.domain.event.DomainEvent;
 import com.github.monaboiste.transactional.domain.event.Event;
 import lombok.Getter;

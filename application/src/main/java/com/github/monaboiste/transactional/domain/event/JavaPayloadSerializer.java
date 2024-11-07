@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 
 @Component
 class JavaPayloadSerializer implements PayloadSerializer {
+
     @Override
     public <T> byte[] serialize(final T payload) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);

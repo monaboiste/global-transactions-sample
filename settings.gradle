@@ -8,4 +8,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "global-transactions-sample"
 
+include "shared"
 include "application"

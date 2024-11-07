@@ -1,5 +1,6 @@
 package com.github.monaboiste.transactional.domain.employee;
 
+import com.github.monaboiste.transactional.domain.ValidatedEmail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -88,7 +89,7 @@ class EmployeeH2JdbcDao implements EmployeeReadRepository, EmployeeWriteReposito
                     new EmployeeId(UUID.fromString(rs.getString("employee_id"))),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
-                    new Email(rs.getString("work_email"), false),
+                    new ValidatedEmail(rs.getString("work_email")),
                     rs.getBoolean("is_active"),
                     rs.getInt("tcn")
             );

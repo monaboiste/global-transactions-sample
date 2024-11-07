@@ -1,6 +1,6 @@
 package com.github.monaboiste.transactional.domain.event;
 
-interface PayloadSerializer {
+public interface PayloadSerializer {
 
     <T> byte[] serialize(T payload);
 
