@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -15,7 +14,6 @@ import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
-@Component
 class EmployeeH2JdbcDao implements EmployeeReadRepository, EmployeeWriteRepository {
 
     private final NamedParameterJdbcTemplate jdbc;

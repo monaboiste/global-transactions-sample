@@ -1,14 +1,11 @@
 package com.github.monaboiste.transactional.event;
 
-import org.springframework.stereotype.Component;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-@Component
 class JavaPayloadSerializer implements PayloadSerializer {
 
     @Override

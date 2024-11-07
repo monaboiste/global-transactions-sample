@@ -2,7 +2,6 @@ package com.github.monaboiste.transactional.event;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
@@ -11,8 +10,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
  */
 @Slf4j
 @RequiredArgsConstructor
-@Component
-class DomainEventStoreProducer implements BatchEventHandler, EventHandler<DomainEvent<?>> {
+class DomainEventStoreHandler implements BatchEventHandler, EventHandler<DomainEvent<?>> {
 
     private final DomainEventStore domainEventStore;
 
