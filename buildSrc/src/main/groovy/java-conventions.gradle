@@ -1,13 +1,9 @@
 plugins {
     id("idea")
     id("java")
-    id("io.freefair.lombok")
 
     id("java-logging-conventions")
 }
-
-// Projects will have the same group by the convention
-group = "com.github.monaboiste.global-transactions-sample"
 
 java {
     toolchain {
@@ -22,6 +18,10 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    // Dev
     compileOnly(libs.annotations)
+
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+    testCompileOnly(libs.lombok)
+    testAnnotationProcessor(libs.lombok)
 }

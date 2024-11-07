@@ -5,9 +5,6 @@ groovy = "4.0.+"
 spock = "2.4-M4-groovy-4.0"
 slf4j = "2.0.+"
 logback = "1.4.+"
-nebula = "19.0.+"
-lombok = "8.4"
-sonarlint = "4.2.14"
 
 [plugins]
 # Nothing here - the external plugins need to be added as implementation dependencies before they can be
@@ -16,11 +13,11 @@ sonarlint = "4.2.14"
 [libraries]
 # Development
 spring-boot = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
-lombok = { group = "io.freefair.gradle", name = "lombok-plugin", version.ref = "lombok" }
+lombok = { group = "org.projectlombok", name = "lombok", version = "1.18.34" }
 annotations = { group = "org.jetbrains", name = "annotations", version = "24.+" }
 
 # Publishing and versioning
-nebula-release = { group = "com.netflix.nebula", name = "nebula-release-plugin", version.ref = "nebula" }
+nebula-release = { group = "com.netflix.nebula", name = "nebula-release-plugin", version = "19.0.+" }
 
 # Logging
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
@@ -34,8 +31,9 @@ spock-core = { group = "org.spockframework", name = "spock-core" }
 spock-spring = { group = "org.spockframework", name = "spock-spring" }
 assertj = { group = "org.assertj", name = "assertj-core", version = "3.+" }
 easy-random = { group = "org.jeasy", name = "easy-random-core", version = "5.0.0" }
+apache-commons = { group = "org.apache.commons", name = "commons-lang3", version = "3.17.0" }
 
 # Checks and linting
-sonarlint = { group = "name.remal.gradle-plugins.sonarlint", name = "sonarlint", version.ref = "sonarlint" }
+sonarlint = { group = "name.remal.gradle-plugins.sonarlint", name = "sonarlint", version = "4.2.14" }
 dependency-analysis = { group = "com.autonomousapps", name = "dependency-analysis-gradle-plugin", version = "2.4.2" }
 

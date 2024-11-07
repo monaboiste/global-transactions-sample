@@ -3,6 +3,8 @@ plugins {
     id("project-dependency-lint-conventions")
 }
 
+group = "com.github.monaboiste.global-transactions-sample"
+
 idea {
     module {
         /*

@@ -8,5 +8,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "global-transactions-sample"
 
-include "shared"
-include "employee"
+include(":shared:model")
+include(":shared:infrastructure")
+include(":employee:application")
+include(":employee:domain")
+include(":employee:infrastructure")
