@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -23,7 +24,7 @@ class EmployeeH2JdbcDao implements EmployeeReadRepository, EmployeeWriteReposito
         log.info("Fetching employee {}", employeeId);
         String statement = """
                 select employee_id, first_name, last_name, work_email, is_active, tcn from employees
-                where employee_id = :employeeid
+                where employee_id = :employee_id
                 """;
         var params = Map.of("employeeId", employeeId.value());
         try (Stream<Employee> stream = jdbc.queryForStream(statement, params, resultSetToEmployee)) {
@@ -40,47 +41,46 @@ class EmployeeH2JdbcDao implements EmployeeReadRepository, EmployeeWriteReposito
         log.info("Persisting employee {}", employee.employeeId());
         String statement = """
                 merge into employees e using dual
-                on e.employee_id = :employeeid
+                on e.employee_id = :employee_id
                    when not matched then
                     insert (employee_id,
                             first_name,
                             last_name,
-                            is_active,
                             work_email,
+                            is_active,
                             tcn)
-                       values (:employeeid,
-                            :firstname,
-                            :lastname,
-                            :active,
-                            :workemail,
-                            :tcn)
+                       values (:employee_id,
+                               :first_name,
+                               :last_name,
+                               :work_email,
+                               :active,
+                               :tcn)
                 when matched and e.tcn < :tcn then
                     update
-                    set e.first_name = :firstname,
-                        e.last_name  = :lastname,
-                        e.work_email = :workemail,
+                    set e.first_name = :first_name,
+                        e.last_name  = :last_name,
+                        e.work_email = :work_email,
                         e.is_active  = :active,
                         e.tcn        = e.tcn
                 """;
-        var params = employeeToParams(employee);
+        var params = employeeToParams.apply(employee);
         int rowsAffected = jdbc.update(statement, params);
         if (rowsAffected == 0) {
             throw new RuntimeException("The record was modified by another transaction"); // todo: throw optimisic locking exception
         }
     }
 
-    private static Map<String, ? extends Serializable> employeeToParams(final Employee employee) {
-        return Map.of(
-                "employeeId", employee.employeeId().value().toString(),
-                "firstName", employee.firstName(),
-                "lastName", employee.lastName(),
-                "workEmail", employee.workEmail().value(),
-                "active", employee.active(),
-                "tcn", employee.version()
-        );
-    }
+    private final Function<Employee, Map<String, ? extends Serializable>> employeeToParams =
+            employee -> Map.of(
+                    "employee_id", employee.employeeId().value().toString(),
+                    "first_name", employee.firstName(),
+                    "last_name", employee.lastName(),
+                    "work_email", employee.workEmail().value(),
+                    "active", employee.active(),
+                    "tcn", employee.version()
+            );
 
-    private static final RowMapper<Employee> resultSetToEmployee = (rs, rowNum) ->
+    private final RowMapper<Employee> resultSetToEmployee = (rs, rowNum) ->
             new Employee(
                     new EmployeeId(UUID.fromString(rs.getString("employee_id"))),
                     rs.getString("first_name"),

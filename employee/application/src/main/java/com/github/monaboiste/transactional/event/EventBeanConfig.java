@@ -25,17 +25,12 @@ class EventBeanConfig {
     }
 
     @Bean
-    DomainEventStore domainEventStore(NamedParameterJdbcTemplate jdbc, PayloadSerializer payloadSerializer) {
-        return new DomainEventH2JdbcDao(jdbc, payloadSerializer);
+    DomainEventStore domainEventStore(NamedParameterJdbcTemplate jdbc, EventSerializer eventSerializer) {
+        return new DomainEventH2JdbcDao(jdbc, eventSerializer);
     }
 
     @Bean
     EventSerializer eventSerializer() {
         return new JavaEventSerializer();
-    }
-
-    @Bean
-    PayloadSerializer payloadSerializer() {
-        return new JavaPayloadSerializer();
     }
 }
