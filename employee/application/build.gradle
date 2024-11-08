@@ -8,8 +8,10 @@ plugins {
 }
 
 dependencies {
-	implementation(project(":shared:model"))
-	implementation(project(":shared:infrastructure"))
+	implementation(project(":shared:domain"))
+	implementation(project(":shared:event"))
+	implementation(project(":shared:infrastructure:messaging-spring-bus"))
+	implementation(project(":shared:infrastructure:persistence-adapter-h2"))
 	implementation(project(":employee:domain"))
 	implementation(project(":employee:infrastructure"))
 

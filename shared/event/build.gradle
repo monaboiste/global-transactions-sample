@@ -5,8 +5,3 @@ plugins {
 	id("java-project-publishing-conventions")
 	id("java-checks-conventions")
 }
-
-dependencies {
-	implementation(project(":shared:domain"))
-	implementation(project(":shared:event"))
-}

@@ -8,7 +8,6 @@ plugins {
 }
 
 dependencies {
-	implementation(project(":shared:domain"))
-	implementation(project(":employee:domain"))
+	implementation(project(":shared:event"))
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 }

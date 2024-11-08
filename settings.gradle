@@ -8,8 +8,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "global-transactions-sample"
 
-include(":shared:model")
-include(":shared:infrastructure")
+include(":shared:domain")
+include(":shared:event")
+include(":shared:infrastructure:messaging-spring-bus")
+include(":shared:infrastructure:persistence-adapter-h2")
 include(":employee:application")
 include(":employee:domain")
 include(":employee:infrastructure")
