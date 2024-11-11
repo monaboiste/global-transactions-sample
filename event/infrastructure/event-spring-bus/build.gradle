@@ -8,9 +8,6 @@ plugins {
 }
 
 dependencies {
-	implementation(project(":shared:event"))
+	implementation(project(":event:api"))
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
-	runtimeOnly("org.liquibase:liquibase-core") // todo: switch to lb plugin
-	runtimeOnly("com.h2database:h2")
-	runtimeOnly("p6spy:p6spy:3.9.1")
 }

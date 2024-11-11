@@ -8,9 +8,9 @@ plugins {
 }
 
 dependencies {
-	implementation(project(":shared:event"))
-	implementation(project(":shared:infrastructure:event-spring-bus"))
-	implementation(project(":shared:infrastructure:persistence-h2"))
+	implementation(project(":event:api"))
+	implementation(project(":event:infrastructure:event-spring-bus"))
+	implementation(project(":event:infrastructure:persistence-h2"))
 
 	implementation(project(":employee:application"))
 }

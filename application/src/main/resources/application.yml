@@ -11,10 +11,6 @@ spring:
     password: sa
     hikari:
       pool-name: default-cp
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
   liquibase:
     change-log: classpath:liquibase/changelog.yml
 logging:

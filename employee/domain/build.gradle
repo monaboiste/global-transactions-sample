@@ -7,6 +7,6 @@ plugins {
 }
 
 dependencies {
-	implementation(project(":shared:domain"))
-	implementation(project(":shared:event"))
+	implementation(project(":shared"))
+	implementation(project(":event:api"))
 }
