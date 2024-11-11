@@ -8,13 +8,9 @@ plugins {
 }
 
 dependencies {
-	implementation(project(":shared:domain"))
 	implementation(project(":shared:event"))
 	implementation(project(":shared:infrastructure:event-spring-bus"))
+	implementation(project(":shared:infrastructure:persistence-h2"))
 
-	implementation(project(":employee:domain"))
-	implementation(project(":employee:infrastructure"))
-
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-jdbc") // transaction management
+	implementation(project(":employee:application"))
 }

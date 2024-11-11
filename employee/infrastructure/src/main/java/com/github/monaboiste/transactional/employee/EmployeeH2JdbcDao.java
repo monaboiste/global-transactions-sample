@@ -26,7 +26,7 @@ class EmployeeH2JdbcDao implements EmployeeReadRepository, EmployeeWriteReposito
                 select employee_id, first_name, last_name, work_email, is_active, tcn from employees
                 where employee_id = :employee_id
                 """;
-        var params = Map.of("employeeId", employeeId.value());
+        var params = Map.of("employee_id", employeeId.value());
         try (Stream<Employee> stream = jdbc.queryForStream(statement, params, resultSetToEmployee)) {
             return stream.findFirst();
         }
