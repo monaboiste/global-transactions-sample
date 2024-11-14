@@ -1,5 +1,7 @@
 package com.github.monaboiste.transactional.domain.employee
 
+import com.github.monaboiste.transactional.employee.Employee
+import com.github.monaboiste.transactional.employee.event.EmployeeSnapshot
 import com.github.monaboiste.transactional.util.Comparators
 import com.github.monaboiste.transactional.util.RandomObject
 import org.assertj.core.api.Assertions

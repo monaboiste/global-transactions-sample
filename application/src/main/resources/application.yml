@@ -11,8 +11,6 @@ spring:
     password: sa
     hikari:
       pool-name: default-cp
-  liquibase:
-    change-log: classpath:liquibase/changelog.yml
 logging:
   level:
     org.springframework.transaction: DEBUG

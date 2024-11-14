@@ -1,0 +1,28 @@
+plugins {
+    id("org.liquibase.gradle")
+}
+
+dependencies {
+    runtimeOnly(libs.h2)
+    runtimeOnly(libs.p6spy)
+
+    // Required dependencies when the liquibase runs a task
+    liquibaseRuntime(libs.liquibase.core)
+    liquibaseRuntime(libs.picocli)
+    liquibaseRuntime(libs.h2)
+}
+
+liquibase {
+    jvmArgs "-Duser.dir=${projectDir}"
+    activities {
+        main {
+            classpath "src/main/resources"
+            changelogFile "src/main/resources/liquibase/changelog.yml"
+            url "jdbc:h2:file:${rootDir}/data/tx;AUTO_SERVER=TRUE"
+            username "sa"
+            password "sa"
+            logLevel "info"
+        }
+    }
+    runList = "main"
+}
