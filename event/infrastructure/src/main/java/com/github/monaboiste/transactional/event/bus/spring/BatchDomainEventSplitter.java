@@ -1,5 +1,7 @@
-package com.github.monaboiste.transactional.event;
+package com.github.monaboiste.transactional.event.bus.spring;
 
+import com.github.monaboiste.transactional.event.BatchDomainEvent;
+import com.github.monaboiste.transactional.event.BatchEventHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;

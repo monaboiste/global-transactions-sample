@@ -1,5 +1,9 @@
-package com.github.monaboiste.transactional.event;
+package com.github.monaboiste.transactional.event.persistence.h2;
 
+import com.github.monaboiste.transactional.event.DomainEvent;
+import com.github.monaboiste.transactional.event.DomainEventStore;
+import com.github.monaboiste.transactional.event.EventSerializer;
+import com.github.monaboiste.transactional.event.Snapshot;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

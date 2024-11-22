@@ -1,4 +1,8 @@
-package com.github.monaboiste.transactional.event;
+package com.github.monaboiste.transactional.event.persistence.h2;
+
+import com.github.monaboiste.transactional.event.Event;
+import com.github.monaboiste.transactional.event.EventSerializer;
+import com.github.monaboiste.transactional.event.Snapshot;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -1,7 +1,7 @@
 package com.github.monaboiste.transactional.employee;
 
 import com.github.monaboiste.transactional.employee.event.EmployeeSnapshot;
-import com.github.monaboiste.transactional.event.ApplicationDomainEventPublisher;
+import com.github.monaboiste.transactional.event.bus.spring.ApplicationDomainEventPublisher;
 import com.github.monaboiste.transactional.event.DomainEventPublisher;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;

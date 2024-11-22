@@ -10,7 +10,7 @@ plugins {
 dependencies {
 	implementation(project(":shared"))
 	implementation(project(":event:api"))
-	implementation(project(":event:infrastructure:event-spring-bus"))
+	implementation(project(":event:infrastructure"))
 
 	implementation(project(":employee:domain"))
 	implementation(project(":employee:infrastructure"))

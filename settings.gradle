@@ -12,8 +12,7 @@ include(":application")
 include(":shared")
 
 include(":event:api")
-include(":event:infrastructure:event-spring-bus")
-include(":event:infrastructure:persistence-h2")
+include(":event:infrastructure")
 
 include(":employee:domain")
 include(":employee:infrastructure")
