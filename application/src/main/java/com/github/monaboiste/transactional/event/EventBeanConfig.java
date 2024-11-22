@@ -3,6 +3,7 @@ package com.github.monaboiste.transactional.event;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @Configuration(proxyBeanMethods = false)
 class EventBeanConfig {
@@ -20,5 +21,10 @@ class EventBeanConfig {
     @Bean
     EventSerializer eventSerializer() {
         return new JavaEventSerializer();
+    }
+
+    @Bean
+    DomainEventStore domainEventStore(NamedParameterJdbcTemplate jdbc, EventSerializer eventSerializer) {
+        return new DomainEventH2JdbcDao(jdbc, eventSerializer);
     }
 }

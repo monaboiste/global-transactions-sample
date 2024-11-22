@@ -61,7 +61,7 @@ class EmployeeApi {
     }
 
     @PostMapping("/{employeeId}/activation")
-    public ResponseEntity<Void> activate(@PathVariable EmployeeId employeeId) {
+    public ResponseEntity<Void> activate(@PathVariable("employeeId") EmployeeId employeeId) {
         log.info("Received activate command");
         activateEmployeeUseCase.activate(employeeId);
         return ResponseEntity.noContent().build();
@@ -69,7 +69,7 @@ class EmployeeApi {
 
     @GetMapping("/{employeeId}")
     public ResponseEntity<EmployeeResource> getEmployeeById(
-            @PathVariable EmployeeId employeeId,
+            @PathVariable("employeeId") EmployeeId employeeId,
             @RequestHeader(value = "If-None-Match", required = false) String ifNoneMatch) {
 
         Optional<Employee> potentialEmployee = employeeReadRepository.findById(employeeId);

@@ -12,12 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 class EmployeeConfig {
 
     @Bean
-    EmployeeReadRepository employeeReadRepository(NamedParameterJdbcTemplate jdbc) {
-        return new EmployeeH2JdbcDao(jdbc);
-    }
-
-    @Bean
-    EmployeeWriteRepository employeeWriteRepository(NamedParameterJdbcTemplate jdbc) {
+    EmployeeH2JdbcDao employeeRepository(NamedParameterJdbcTemplate jdbc) {
         return new EmployeeH2JdbcDao(jdbc);
     }
 

@@ -3,7 +3,6 @@ package com.github.monaboiste.transactional.event;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.function.Function;
 
 @Slf4j
 @RequiredArgsConstructor
-@Service
 class DomainEventH2JdbcDao implements DomainEventStore {
 
     private final NamedParameterJdbcTemplate jdbc;
