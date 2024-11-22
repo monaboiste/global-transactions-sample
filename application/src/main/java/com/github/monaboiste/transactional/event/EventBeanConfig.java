@@ -1,5 +1,6 @@
 package com.github.monaboiste.transactional.event;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,8 @@ class EventBeanConfig {
     }
 
     @Bean
-    DomainEventStore domainEventStore(NamedParameterJdbcTemplate jdbc, EventSerializer eventSerializer) {
+    DomainEventStore domainEventStore(@Qualifier("eventJdbcTemplate") NamedParameterJdbcTemplate jdbc,
+                                      EventSerializer eventSerializer) {
         return new DomainEventH2JdbcDao(jdbc, eventSerializer);
     }
 }
