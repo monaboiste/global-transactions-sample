@@ -10,22 +10,16 @@ management:
           - health
           - metrics
 
-spring:
-  datasource:
-    event-datasource:
-      url: jdbc:p6spy:h2:file:${rootDir}/data/tx;AUTO_SERVER=TRUE
-      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-      username: sa
-      password: sa
-      hikari:
-        pool-name: event-cp
-    employee-datasource:
-      url: jdbc:p6spy:h2:file:${rootDir}/data/tx;AUTO_SERVER=TRUE
-      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-      username: sa
-      password: sa
-      hikari:
-        pool-name: employee-cp
+#spring:
+#  config:
+#    import: "classpath:application-employee.yml"
+#  datasource:
+#    url: jdbc:p6spy:h2:file:${rootDir}/data/tx;AUTO_SERVER=TRUE
+#    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+#    username: sa
+#    password: sa
+#    hikari:
+#      pool-name: shared-cp
 
 logging:
   level:

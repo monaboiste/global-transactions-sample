@@ -2,7 +2,6 @@ package com.github.monaboiste.transactional.event.persistence.h2;
 
 import com.github.monaboiste.transactional.event.DomainEventStore;
 import com.github.monaboiste.transactional.event.EventSerializer;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,8 +15,7 @@ public class EventPersistenceConfig {
     }
 
     @Bean
-    public DomainEventStore domainEventStore(@Qualifier("eventJdbcTemplate") NamedParameterJdbcTemplate jdbc,
-                                             EventSerializer eventSerializer) {
+    public DomainEventStore domainEventStore(NamedParameterJdbcTemplate jdbc, EventSerializer eventSerializer) {
         return new DomainEventH2JdbcDao(jdbc, eventSerializer);
     }
 }

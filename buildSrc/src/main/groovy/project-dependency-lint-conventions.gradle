@@ -1,5 +1,5 @@
 plugins {
-    id("com.autonomousapps.dependency-analysis")
+    id("com.autonomousapps.dependency-analysis") apply(false)
 }
 
 subprojects {
@@ -26,7 +26,7 @@ dependencyAnalysis {
             structure {
                 bundle("springframework") {
                     include("org.springframework.*")
-                    // jackson is shipped with springframework.boot bundle
+                    // jackson is shipped with springframework.boot starter bundle
                     includeDependency("com.fasterxml.jackson.core:jackson-annotations")
                     includeDependency("com.fasterxml.jackson.core:jackson-databind")
                 }
