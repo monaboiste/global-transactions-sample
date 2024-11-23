@@ -13,7 +13,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration(proxyBeanMethods = false)
-@PropertySource(value = "classpath:application-employee.yml", factory = YamlPropertySourceFactory.class)
+@PropertySource(
+        value = "classpath:application-employee.yml",
+        factory = com.github.monaboiste.transactional.YamlPropertySourceFactory.class
+)
 class EmployeeDatasourceConfig {
 
     @Bean

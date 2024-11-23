@@ -11,6 +11,7 @@ plugins {
 
 dependencies {
     implementation(project(":shared"))
+    implementation(project(":spring-utils"))
     implementation(project(":event:api"))
     implementation(project(":event:infrastructure"))
 

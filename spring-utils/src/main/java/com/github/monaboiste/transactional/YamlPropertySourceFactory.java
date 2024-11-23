@@ -1,4 +1,4 @@
-package com.github.monaboiste.transactional.employee;
+package com.github.monaboiste.transactional;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,6 +11,20 @@ import org.springframework.core.io.support.PropertySourceFactory;
 import java.util.Objects;
 import java.util.Properties;
 
+/**
+ * Helper class to support loading properties into spring property source from YAML files.
+ * <p>
+ * <b>Premise:</b> {@link org.springframework.context.annotation.PropertySource} allows specifying
+ * EXCLUSIVELY <code>.properties</code> files. Thus, it's not possible to load YAML properties from
+ * the spring library modules out of the box.
+ * <p>
+ * Usage:
+ * <pre>{@code
+ * @Configuration
+ * @PropertySource(value = "classpath:application-sample.yml", factory = YamlPropertySourceFactory.class)
+ * class SampleConfig { }
+ * }</pre>
+ */
 public class YamlPropertySourceFactory implements PropertySourceFactory {
 
     @Override
