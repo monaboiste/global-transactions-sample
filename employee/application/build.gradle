@@ -1,12 +1,11 @@
 plugins {
     id("java-conventions")
     id("spring-boot-library-conventions")
-    id("database-h2-conventions")
 
     id("groovy-testing-conventions")
 
     id("java-project-publishing-conventions")
-//    id("java-checks-conventions") todo: fix linting - its applied event if this line is commented
+//    id("java-checks-conventions")
 }
 
 dependencies {

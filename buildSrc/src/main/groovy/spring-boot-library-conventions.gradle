@@ -7,7 +7,7 @@ dependencies {
 
 /*
  * Properties expansion.
- * Note: Spring place holders must be escaped as follows: '\${springProperty}'.
+ * Note: Spring place holders must be escaped as follows: `\${springProperty}`.
  * See: https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html#howto.properties-and-configuration.expand-properties.gradle
  */
 processResources {

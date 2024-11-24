@@ -1,19 +1,22 @@
+/*
+ * This convention plugin must be applied on the root level.
+ */
 plugins {
     id("com.autonomousapps.dependency-analysis") apply(false)
 }
 
 subprojects {
-        def enabled = (project.findProperty("dependency-lint-enabled") ?: "true").toBoolean()
-        if (enabled) {
-            apply plugin: "com.autonomousapps.dependency-analysis"
+    def enabled = (project.findProperty("dependency-analysis-enabled") ?: "true").toBoolean()
+    if (enabled) {
+        apply plugin: "com.autonomousapps.dependency-analysis"
 
-            tasks.register('dependency-print-lint') {
-                group("verification")
-                description("Run dependency analysis")
+        tasks.register("dependency-print-analysis") {
+            group("verification")
+            description("Run dependency analysis")
 
-                dependsOn(tasks.projectHealth)
-            }
+            dependsOn(tasks.projectHealth)
         }
+    }
 }
 
 /*
@@ -35,7 +38,7 @@ dependencyAnalysis {
     }
 }
 
-tasks.register('dependency-lint') {
+tasks.register("dependency-analysis") {
     group("verification")
     description("Run dependency analysis")
 

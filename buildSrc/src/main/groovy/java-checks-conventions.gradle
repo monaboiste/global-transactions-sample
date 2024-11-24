@@ -20,7 +20,7 @@ sonarLint {
 /*
  * Workaround to ignore sonarlintMain console output.
  */
-tasks.register('lint', Exec) {
+tasks.register("lint", Exec) {
     group("verification")
     description("Run SonarLint checks without SonarQube server")
 

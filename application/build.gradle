@@ -5,8 +5,6 @@ plugins {
 
     id("java-project-publishing-conventions")
     id("java-checks-conventions")
-
-    id("database-h2-conventions")
 }
 
 dependencies {

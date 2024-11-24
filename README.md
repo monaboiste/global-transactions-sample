@@ -82,3 +82,4 @@ tbc
 ### TODOs
 
 - change employee/application name module - this most likely will cause naming conflicts in the future
+- try converting dependency-analysis plugin from root to project scope
