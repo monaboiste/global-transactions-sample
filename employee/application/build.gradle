@@ -5,7 +5,7 @@ plugins {
     id("groovy-testing-conventions")
 
     id("java-project-publishing-conventions")
-//    id("java-checks-conventions")
+    id("java-checks-conventions")
 }
 
 dependencies {

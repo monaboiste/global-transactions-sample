@@ -1,6 +1,6 @@
 plugins {
     id("idea")
-    id("project-dependency-lint-conventions")
+    id("project-dependency-analysis-conventions")
 }
 
 group = "com.github.monaboiste.global-transactions-sample"

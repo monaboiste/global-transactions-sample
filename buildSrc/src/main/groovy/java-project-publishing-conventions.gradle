@@ -14,7 +14,7 @@ gradle.rootProject {
      * - the plugin does not support the multiple project release from the same
      *   repository - all artefacts must have the same version
      */
-    apply plugin: "nebula.release"
+    apply(plugin: "nebula.release")
 
     nebulaRelease {
         releaseBranchPatterns = [/master/]

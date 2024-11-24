@@ -1,0 +1,56 @@
+/*
+ * This convention plugin must be applied on the root level.
+ * See the wiki of https://github.com/autonomousapps/dependency-analysis-gradle-plugin
+ */
+
+plugins {
+    id("com.autonomousapps.dependency-analysis")
+}
+
+/*
+ * The extension must be configured in the root (see: project-dependency-analysis-conventions).
+ *
+ * Some issues may be false-positive, extend this configuration if necessary.
+ * Docs: https://github.com/autonomousapps/dependency-analysis-gradle-plugin/wiki/Customizing-plugin-behavior
+ */
+afterEvaluate { project ->
+    if (project == rootProject) {
+        dependencyAnalysis {
+            issues {
+                all {
+                    structure {
+                        bundle("springframework") {
+                            include("org.springframework.*")
+                            // jackson is shipped with springframework.boot starter bundle
+                            includeDependency("com.fasterxml.jackson.core:jackson-annotations")
+                            includeDependency("com.fasterxml.jackson.core:jackson-databind")
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
+         * Root project task, i. e. `./gradlew dependency-analysis`
+         */
+        tasks.register("dependency-analysis") {
+            group("verification")
+            description("Run dependency analysis")
+
+            dependsOn(tasks.buildHealth)
+
+            // reports location defaults to "${rootDir}/build/reports/dependency-analysis/build-health-report.txt"
+        }
+
+    }
+}
+
+/*
+ * Subproject task, e.g. `./gradlew :subproject:dependency-print-analysis`
+ */
+tasks.register("dependency-print-analysis") {
+    group = "verification"
+    description = "Run dependency analysis"
+
+    dependsOn(tasks.named("projectHealth"))
+}
