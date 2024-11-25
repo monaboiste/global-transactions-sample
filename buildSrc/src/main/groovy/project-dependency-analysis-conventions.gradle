@@ -46,17 +46,5 @@ afterEvaluate { project ->
 
             // reports location defaults to "${rootDir}/build/reports/dependency-analysis/build-health-report.txt"
         }
-
-    } else {
-        /*
-         * Print analysis to the console, it may be also invoked for a subproject,
-         * e.g. `./gradlew :subproject:dependency-analysis-print`
-         */
-//        tasks.register("dependency-analysis-print") {
-//            group = "verification"
-//            description = "Run dependency analysis"
-//
-//            dependsOn(tasks.projectHealth)
-//        }
     }
 }
