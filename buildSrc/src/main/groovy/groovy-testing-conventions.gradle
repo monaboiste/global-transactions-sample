@@ -12,5 +12,10 @@ dependencies {
 if (plugins.hasPlugin("spring-boot-conventions")) {
     dependencies {
         testRuntimeOnly(libs.spock.spring)
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
+}
+
+tasks.withType(GroovyCompile) {
+    groovyOptions.javaAnnotationProcessing = true // Java annotation processors should process annotations on stub
 }
