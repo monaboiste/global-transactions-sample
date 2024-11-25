@@ -25,7 +25,7 @@ gradle.rootProject {
 
 publishing {
     publications {
-        yetanovalidate(MavenPublication) {
+        publication(MavenPublication) {
             from components.java
             versionMapping {
                 // use the versions resolved on the runtimeClasspath for dependencies declared in api
@@ -47,7 +47,9 @@ tasks.register("print-version") {
     group("publishing")
     description("Print current project version")
 
-    println(project.version)
+    doLast {
+        println(project.version)
+    }
 }
 
 tasks.register("publish-final") {
