@@ -1,4 +1,4 @@
-### Sources
+## Sources
 
 - https://pillopl.github.io/reliable-domain-events/
 - https://dzone.com/articles/transaction-synchronization-and-spring-application
@@ -7,6 +7,12 @@
 
 The project uses pre-compiled convention plugins. Sometimes Gradle does not detect the changes
 in the plugin. When you make any modifications to the gradle scripts, make sure to run `./gradlew clean`
+
+_Note: if you're having issues with IntelliJ, try generating IDE metadata:_
+```shell
+./gradlew cleanIdea idea
+```
+_and then, reimport the project into IntelliJ._
 
 ### Conventions
 

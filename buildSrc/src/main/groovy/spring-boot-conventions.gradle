@@ -25,8 +25,15 @@ springBoot {
 
 /*
  * Properties expansion.
- * Note: Spring place holders must be escaped as follows: `\${springProperty}`.
- * See: https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html#howto.properties-and-configuration.expand-properties.gradle
+ * Note: Spring placeholders must be escaped as follows: `\${springProperty}`
+ * (see: https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html#howto.properties-and-configuration.expand-properties.gradle)
+ *
+ * Note2: may produce the following warning in IntelliJ
+ * `
+ *  Cannot resolve resource filtering of MatchingCopyAction.
+ *. IDEA may fail to build project. Consider using delegated build (enabled by default).
+ * `
+ * (see: https://youtrack.jetbrains.com/issue/IDEA-296490)
  */
 processResources {
     filesMatching("**/application*.yml") {
