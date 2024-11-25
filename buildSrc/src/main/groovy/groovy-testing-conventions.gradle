@@ -7,7 +7,6 @@ dependencies {
     testImplementation(libs.groovy)
     testImplementation(platform(libs.spock.bom))
     testImplementation(libs.spock.core)
-    testImplementation(libs.apache.commons)
 }
 
 if (plugins.hasPlugin("spring-boot-conventions")) {

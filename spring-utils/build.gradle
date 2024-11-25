@@ -4,4 +4,6 @@ plugins {
 
     id("java-project-publishing-conventions")
     id("java-checks-conventions")
+
+    id("project-dependency-analysis-conventions")
 }

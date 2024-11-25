@@ -1,7 +1,6 @@
 plugins {
     id("java-conventions")
     id("spring-boot-conventions")
-    id("groovy-testing-conventions")
 
     id("java-project-publishing-conventions")
     id("java-checks-conventions")
@@ -10,8 +9,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":event:api"))
-    implementation(project(":event:infrastructure"))
-
-    implementation(project(":employee:application"))
+    runtimeOnly(project(":event:infrastructure"))
+    runtimeOnly(project(":employee:application"))
 }

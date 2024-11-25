@@ -26,6 +26,11 @@ afterEvaluate { project ->
                             includeDependency("com.fasterxml.jackson.core:jackson-databind")
                         }
                     }
+                    onUnusedAnnotationProcessors {
+                        // ignore unused annotation processors, eg. lombok
+                        severity("ignore")
+                    }
+                    ignoreSourceSet("test")
                 }
             }
         }
@@ -42,15 +47,16 @@ afterEvaluate { project ->
             // reports location defaults to "${rootDir}/build/reports/dependency-analysis/build-health-report.txt"
         }
 
+    } else {
+        /*
+         * Print analysis to the console, it may be also invoked for a subproject,
+         * e.g. `./gradlew :subproject:dependency-analysis-print`
+         */
+        tasks.register("dependency-analysis-print") {
+            group = "verification"
+            description = "Run dependency analysis"
+
+            dependsOn(tasks.projectHealth)
+        }
     }
-}
-
-/*
- * Subproject task, e.g. `./gradlew :subproject:dependency-print-analysis`
- */
-tasks.register("dependency-print-analysis") {
-    group = "verification"
-    description = "Run dependency analysis"
-
-    dependsOn(tasks.named("projectHealth"))
 }

@@ -1,11 +1,12 @@
 plugins {
     id("java-conventions")
+    id("java-logging-conventions")
     id("spring-boot-library-conventions")
-
-    id("groovy-testing-conventions")
 
     id("java-project-publishing-conventions")
     id("java-checks-conventions")
+
+    id("project-dependency-analysis-conventions")
 }
 
 dependencies {
@@ -19,4 +20,6 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jdbc") // transaction management
+
+    testImplementation(libs.apache.commons)
 }

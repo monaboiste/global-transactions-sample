@@ -9,7 +9,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Tracing
-    implementation("io.micrometer:micrometer-tracing-bridge-brave")
+    runtimeOnly("io.micrometer:micrometer-tracing-bridge-brave")
 }
 
 tasks.bootJar {
