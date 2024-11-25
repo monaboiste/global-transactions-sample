@@ -9,11 +9,10 @@ group = "com.github.monaboiste.global-transactions-sample"
 idea {
     module {
         /*
-         * Downloading sources from Intellij does not work
-         * without these properties. Set both to `true` and
-         * reload the project to download all sources.
+         * Set the flags to `true` if Intellij encounters a problem with downloading the sources.
+         * Beware, when set, the sources from ALL dependencies will be downloaded.
          */
-        downloadJavadoc = true
-        downloadSources = true
+        downloadJavadoc = false
+        downloadSources = false
     }
 }

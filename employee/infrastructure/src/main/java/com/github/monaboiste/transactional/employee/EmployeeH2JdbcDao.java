@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
+@SuppressWarnings("squid:S1192")
 class EmployeeH2JdbcDao implements EmployeeReadRepository, EmployeeWriteRepository {
 
     private final NamedParameterJdbcTemplate jdbc;

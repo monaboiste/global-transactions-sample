@@ -12,7 +12,6 @@ plugins {
 dependencies {
     implementation(project(":event:api"))
     implementation(project(":event:infrastructure"))
-    implementation("org.springframework.boot:spring-boot-starter-jdbc") // todo: api?
 
     implementation(project(":employee:application"))
 }

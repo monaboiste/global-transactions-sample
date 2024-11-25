@@ -17,7 +17,7 @@ import javax.sql.DataSource;
         value = "classpath:application-employee.yml",
         factory = com.github.monaboiste.transactional.YamlPropertySourceFactory.class
 )
-class EmployeeDatasourceConfig {
+class EmployeeDataSourceConfig {
 
     @Bean
     public NamedParameterJdbcTemplate employeeJdbcTemplate(@Qualifier("employeeDataSource") DataSource dataSource) {
