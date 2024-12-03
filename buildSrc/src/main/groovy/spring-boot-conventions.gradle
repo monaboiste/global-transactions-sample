@@ -36,7 +36,7 @@ springBoot {
  * (see: https://youtrack.jetbrains.com/issue/IDEA-296490)
  */
 processResources {
-    filesMatching("**/application*.yml") {
+    filesMatching("**/application*.properties") {
         expand(project.properties)
     }
 }

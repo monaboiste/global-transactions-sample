@@ -10,11 +10,10 @@ rootProject.name = "global-transactions-sample"
 
 include(":application")
 include(":shared")
-include(":spring-utils")
 
-include(":event:api")
-include(":event:infrastructure")
+include(":event:event-api")
+include(":event:event-infrastructure")
 
-include(":employee:domain")
-include(":employee:infrastructure")
-include(":employee:application")
+include(":employee:employee-domain")
+include(":employee:employee-infrastructure")
+include(":employee:employee-application")

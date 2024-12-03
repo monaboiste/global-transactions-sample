@@ -24,15 +24,12 @@ _and then, reimport the project into IntelliJ._
 
 - do not use wildcard imports, to customize Intellij go to: `Settings > Editor > Code Style > Java/Groovy > Imports`,
   set `Class count to use import with '*'` value to `999` and `Names count to use import with '*'` to `999`
-- use YAML format when defining application properties
-- to support YAML properties format in your domain application, you want to import `:spring-utils` module
-  (
-  see: [YamlPropertySourceFactory.java](spring-utils/src/main/java/com/github/monaboiste/transactional/YamlPropertySourceFactory.java)
-  for usage)
-- use fluent naming convention for the getters if possible (see: `lombok.config`) to align with
-  java `record` (allows seamlessly converting between plain immutable java classes and records)
+- use `.properties` format when defining application properties - do not use `.yml` - it requires a custom handling,
+  which gets complicated when you also count the Spring profiles 
 - prefix spring application libraries' properties file with `application-` - allows supporting project properties
   expansion
+- use fluent naming convention for the getters if possible (see: `lombok.config`) to align with
+  java `record` (allows seamlessly converting between plain immutable java classes and records)
 
 #### SQL
 

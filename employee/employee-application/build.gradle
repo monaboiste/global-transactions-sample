@@ -11,12 +11,11 @@ plugins {
 
 dependencies {
     implementation(project(":shared"))
-    implementation(project(":spring-utils"))
-    implementation(project(":event:api"))
-    implementation(project(":event:infrastructure"))
+    implementation(project(":event:event-api"))
+    implementation(project(":event:event-infrastructure"))
 
-    implementation(project(":employee:domain"))
-    implementation(project(":employee:infrastructure"))
+    implementation(project(":employee:employee-domain"))
+    implementation(project(":employee:employee-infrastructure"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jdbc") // transaction management

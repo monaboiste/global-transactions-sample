@@ -1,9 +1,6 @@
 plugins {
     id("java-library-conventions")
-    id("java-logging-conventions")
-    id("spring-boot-library-conventions")
-
-    id("database-h2-conventions")
+    id("groovy-testing-conventions")
 
     id("java-project-publishing-conventions")
     id("java-checks-conventions")
@@ -13,6 +10,8 @@ plugins {
 
 dependencies {
     implementation(project(":shared"))
-    implementation(project(":employee:domain"))
-    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation(project(":event:event-api"))
+
+
+    testImplementation(libs.apache.commons)
 }

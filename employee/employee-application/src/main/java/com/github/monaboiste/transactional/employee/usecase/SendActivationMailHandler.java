@@ -15,7 +15,7 @@ class SendActivationMailHandler implements EventHandler<Hired> {
     @Async
     @EventListener(classes = Hired.class)
     public void process(final Hired event) {
-      log.info("Sending activation link to employee {}", event.payload().workEmail());
+        log.info("Sending activation link to employee {}", event.payload().workEmail());
         try {
             Thread.sleep(2000L);
         } catch (InterruptedException e) {
