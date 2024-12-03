@@ -1,21 +1,27 @@
 plugins {
     id("groovy")
-    id("java-unit-testing-conventions")
 }
 
 dependencies {
     testImplementation(libs.groovy)
     testImplementation(platform(libs.spock.bom))
     testImplementation(libs.spock.core)
-}
-
-if (plugins.hasPlugin("spring-boot-conventions")) {
-    dependencies {
+    if (plugins.hasPlugin("spring-boot-conventions")) {
         testRuntimeOnly(libs.spock.spring)
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
+
+    testImplementation(libs.assertj)
+    testImplementation(libs.easy.random)
 }
 
 tasks.withType(GroovyCompile) {
     groovyOptions.javaAnnotationProcessing = true // Java annotation processors should process annotations on stub
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+    }
 }
