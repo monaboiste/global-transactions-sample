@@ -3,15 +3,15 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.spring.boot)
+    implementation(libs.spring.boot.plugin)
 
     // The Liquibase plugin Liquibase requires liquibase-core
     // on the classpath when it is applied.
     implementation(libs.liquibase.core)
-    implementation(libs.liquibase)
+    implementation(libs.liquibase.plugin)
 
-    implementation(libs.nebula.release)
+    implementation(libs.nebula.release.plugin)
 
-    implementation(libs.sonarlint)
-    implementation(libs.dependency.analysis)
+    implementation(libs.sonarlint.plugin)
+    implementation(libs.dependency.analysis.plugin)
 }

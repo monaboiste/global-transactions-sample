@@ -1,0 +1,41 @@
+plugins {
+    id("idea")
+    id("groovy")
+}
+
+idea {
+    module {
+        testSourceDirs += file("src/smoke-test/groovy")
+        testResourceDirs += file("src/smoke-test/resources")
+    }
+}
+
+sourceSets {
+    smokeTest {
+        groovy.srcDir("src/smoke-test/groovy")
+        resources.srcDir("src/smoke-test/resources")
+    }
+}
+
+configurations {
+    // smokeTest inherits dependencies from test source set
+    smokeTestImplementation.extendsFrom testImplementation
+    smokeTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+dependencies {
+    smokeTestImplementation(libs.jackson)
+}
+
+tasks.register("smoke-test", Test) {
+    group("verification")
+    description("Run smoke tests")
+
+    testClassesDirs = sourceSets.smokeTest.output.classesDirs
+    classpath = sourceSets.smokeTest.runtimeClasspath
+
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+    }
+}

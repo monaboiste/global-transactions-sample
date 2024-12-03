@@ -13,19 +13,19 @@ logback = "1.4.+"
 
 [libraries]
 # Development
-spring-boot = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
+spring-boot-plugin = { group = "org.springframework.boot", name = "spring-boot-gradle-plugin", version.ref = "spring-boot" }
 lombok = { group = "org.projectlombok", name = "lombok", version = "1.18.34" }
 annotations = { group = "org.jetbrains", name = "annotations", version = "24.+" }
 
 # Database
-liquibase = { group = "org.liquibase", name = "liquibase-gradle-plugin", version = "3.0.1" }
+liquibase-plugin = { group = "org.liquibase", name = "liquibase-gradle-plugin", version = "3.0.1" }
 liquibase-core = { group = "org.liquibase", name = "liquibase-core", version = "4.30.0" }
 picocli = { group = "info.picocli", name = "picocli", version = "4.7.6" }
 h2 = { group = "com.h2database", name = "h2", version = "2.3.232" }
 p6spy = { group = "p6spy", name = "p6spy", version = "3.9.1" }
 
 # Publishing and versioning
-nebula-release = { group = "com.netflix.nebula", name = "nebula-release-plugin", version = "19.0.+" }
+nebula-release-plugin = { group = "com.netflix.nebula", name = "nebula-release-plugin", version = "19.0.+" }
 
 # Logging
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
@@ -40,7 +40,8 @@ spock-spring = { group = "org.spockframework", name = "spock-spring" }
 assertj = { group = "org.assertj", name = "assertj-core", version = "3.+" }
 easy-random = { group = "org.jeasy", name = "easy-random-core", version = "5.0.0" }
 apache-commons = { group = "org.apache.commons", name = "commons-lang3", version = "3.17.0" }
+jackson = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.18.+" }
 
 # Checks and linting
-sonarlint = { group = "name.remal.gradle-plugins.sonarlint", name = "sonarlint", version = "4.2.14" }
-dependency-analysis = { group = "com.autonomousapps", name = "dependency-analysis-gradle-plugin", version = "2.4.2" }
+sonarlint-plugin = { group = "name.remal.gradle-plugins.sonarlint", name = "sonarlint", version = "4.2.14" }
+dependency-analysis-plugin = { group = "com.autonomousapps", name = "dependency-analysis-gradle-plugin", version = "2.4.2" }
