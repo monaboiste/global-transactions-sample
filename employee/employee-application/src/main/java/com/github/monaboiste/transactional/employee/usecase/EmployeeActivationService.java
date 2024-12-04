@@ -32,16 +32,14 @@ class EmployeeActivationService implements ActivateEmployeeUseCase {
 
         var tx = new TransactionTemplate(transactionManager);
         tx.executeWithoutResult(status -> {
-            var potentialEmployee = employeeReadRepository.findById(employeeId);
-            if (potentialEmployee.isEmpty()) {
-                throw new RuntimeException(); // todo: domain event
-            }
-            Employee newEmployee = potentialEmployee.get();
-            if (newEmployee.active()) {
+            var employee = employeeReadRepository.findById(employeeId)
+                    .orElseThrow();// todo: domain event
+
+            if (employee.active()) {
                 return;
             }
-            newEmployee.activate();
-            employeeWriteRepository.save(newEmployee);
+            employee.activate();
+            employeeWriteRepository.save(employee);
         });
     }
 }
