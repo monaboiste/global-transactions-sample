@@ -69,8 +69,8 @@ class EmployeeApi {
 
     @GetMapping("/{employeeId}")
     public ResponseEntity<EmployeeResource> getEmployeeById(
-            @PathVariable("employeeId") EmployeeId employeeId,
-            @RequestHeader(value = "If-None-Match", required = false) String ifNoneMatch) {
+            @RequestHeader(value = "If-None-Match", required = false) String ifNoneMatch,
+            @PathVariable("employeeId") EmployeeId employeeId) {
 
         Optional<Employee> potentialEmployee = employeeReadRepository.findById(employeeId);
         if (potentialEmployee.isEmpty()) {

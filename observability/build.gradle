@@ -13,7 +13,6 @@ plugins {
 
 dependencies {
     implementation("org.aspectj:aspectjrt:1.9.22.1")
-//    implementation("org.aspectj:aspectjtools:1.9.22.1")
 }
 
 // configure AspectJ

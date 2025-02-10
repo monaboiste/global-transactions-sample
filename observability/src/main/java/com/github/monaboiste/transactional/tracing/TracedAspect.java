@@ -8,7 +8,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import java.io.Closeable;
 
 @Aspect
-class TracedAspect {
+public class TracedAspect {
 
     private TraceProvider traceProvider;
 
@@ -40,7 +40,7 @@ class TracedAspect {
         return traceId;
     }
 
-    void setTraceProvider(TraceProvider traceProvider) {
+    public void setTraceProvider(TraceProvider traceProvider) {
         this.traceProvider = traceProvider;
     }
 }

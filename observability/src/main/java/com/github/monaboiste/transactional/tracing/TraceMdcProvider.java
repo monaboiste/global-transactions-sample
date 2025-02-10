@@ -8,7 +8,7 @@ import java.io.Closeable;
 
 class TraceMdcProvider implements TraceProvider {
     private static final Logger log = LoggerFactory.getLogger(TraceMdcProvider.class);
-    private static final String TRACE_ID = "traceId";
+    private static final String TRACE_ID = "requestId";
 
     private final TraceIdGenerator traceIdGenerator;
 
