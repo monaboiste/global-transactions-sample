@@ -10,6 +10,7 @@ rootProject.name = "global-transactions-sample"
 
 include(":application")
 include(":shared")
+include(":observability")
 
 include(":event:event-api")
 include(":event:event-infrastructure")

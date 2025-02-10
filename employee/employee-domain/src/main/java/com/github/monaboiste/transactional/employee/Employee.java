@@ -1,6 +1,6 @@
 package com.github.monaboiste.transactional.employee;
 
-import com.github.monaboiste.transactional.domain.Email;
+import com.github.monaboiste.transactional.Email;
 import com.github.monaboiste.transactional.employee.event.EmployeeActivated;
 import com.github.monaboiste.transactional.employee.event.EmployeeSnapshot;
 import com.github.monaboiste.transactional.employee.event.Hired;

@@ -1,0 +1,21 @@
+plugins {
+    id("java-library-conventions")
+    id("java-logging-conventions")
+    id("groovy-testing-conventions")
+
+    id("java-project-publishing-conventions")
+    id("java-checks-conventions")
+
+    id("project-dependency-analysis-conventions")
+
+    id("io.freefair.aspectj.post-compile-weaving") version("8.12.1")
+}
+
+dependencies {
+    implementation("org.aspectj:aspectjrt:1.9.22.1")
+//    implementation("org.aspectj:aspectjtools:1.9.22.1")
+}
+
+// configure AspectJ
+compileJava.ajc.options.compilerArgs << "-showWeaveInfo -verbose"
+compileTestGroovy.ajc.options.aspectpath.from sourceSets.main.output

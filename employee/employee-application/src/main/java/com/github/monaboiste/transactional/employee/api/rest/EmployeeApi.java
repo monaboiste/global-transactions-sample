@@ -1,6 +1,6 @@
 package com.github.monaboiste.transactional.employee.api.rest;
 
-import com.github.monaboiste.transactional.domain.Email;
+import com.github.monaboiste.transactional.Email;
 import com.github.monaboiste.transactional.employee.Employee;
 import com.github.monaboiste.transactional.employee.EmployeeId;
 import com.github.monaboiste.transactional.employee.EmployeeReadRepository;

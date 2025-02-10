@@ -1,4 +1,4 @@
-package com.github.monaboiste.transactional.domain;
+package com.github.monaboiste.transactional;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

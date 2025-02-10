@@ -1,6 +1,6 @@
 package com.github.monaboiste.transactional.util
 
-import com.github.monaboiste.transactional.domain.Email
+import com.github.monaboiste.transactional.Email
 import groovy.transform.PackageScope
 import lombok.AccessLevel
 import lombok.AllArgsConstructor

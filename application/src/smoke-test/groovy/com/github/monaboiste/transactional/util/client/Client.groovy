@@ -37,7 +37,7 @@ class Client {
         log.info("[${getClass().simpleName} ${request.uri()}] REQUEST")
         def response
         try {
-            response = http.send(request, new JsonBodyHandler<>(Map.class, deserializer))
+            response = http.send(request, new JsonBodyHandler<>(Map, deserializer))
         } catch (Exception e) {
             log.error("Unexpected error encountered", e)
             response = new NoOpHttpResponse<>()

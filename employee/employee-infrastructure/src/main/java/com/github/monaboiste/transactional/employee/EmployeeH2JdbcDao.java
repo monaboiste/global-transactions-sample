@@ -1,6 +1,6 @@
 package com.github.monaboiste.transactional.employee;
 
-import com.github.monaboiste.transactional.domain.ValidatedEmail;
+import com.github.monaboiste.transactional.ValidatedEmail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.RowMapper;

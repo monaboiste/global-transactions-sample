@@ -1,6 +1,6 @@
-package com.github.monaboiste.transactional.domain.employee
+package com.github.monaboiste.transactional.employee
 
-import com.github.monaboiste.transactional.employee.Employee
+
 import com.github.monaboiste.transactional.employee.event.EmployeeSnapshot
 import com.github.monaboiste.transactional.util.Comparators
 import com.github.monaboiste.transactional.util.RandomObject
@@ -18,7 +18,7 @@ class EmployeeSnapshotTest extends Specification {
 
     def "should include all relevant fields in snapshot"() {
         given: "an employee object"
-        def employee = RandomObject.generate(Employee.class)
+        def employee = RandomObject.generate(Employee)
         def ignoringFields = new String[]{"pendingEvents"}
 
         when: "instantiating a snapshot of the object"
