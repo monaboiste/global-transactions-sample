@@ -10,12 +10,12 @@ class RandomTraceIdGenerator implements TraceIdGenerator {
 
     @Override
     @NotNull
-    public String generate() {
+    public Trace generate() {
         ThreadLocalRandom rd = ThreadLocalRandom.current();
         StringBuilder sb = new StringBuilder(LENGTH);
         for (int i = 0; i < LENGTH; i++) {
             sb.append(CHARACTERS[rd.nextInt(CHARACTERS.length)]);
         }
-        return sb.toString();
+        return new Trace(sb.toString());
     }
 }

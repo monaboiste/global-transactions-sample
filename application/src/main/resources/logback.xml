@@ -10,7 +10,7 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <timeZone>UTC</timeZone>
-            <mdcKeyFieldName>traceId=trace_id</mdcKeyFieldName>
+            <mdcKeyFieldName>trace=trace_id</mdcKeyFieldName>
             <mdcKeyFieldName>spanId=span_id</mdcKeyFieldName>
         </encoder>
     </appender>

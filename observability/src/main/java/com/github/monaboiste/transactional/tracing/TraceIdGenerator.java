@@ -7,5 +7,5 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface TraceIdGenerator {
 
-    @NotNull String generate();
+    @NotNull Trace generate();
 }

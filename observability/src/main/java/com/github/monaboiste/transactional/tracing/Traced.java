@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
 public @interface Traced {
 
     /**
-     * Reads the value of provided method name parameter into trace identifier.
+     * Reads the traceId of provided method name parameter into trace identifier.
      */
     String parameter() default "";
 }

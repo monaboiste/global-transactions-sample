@@ -15,15 +15,15 @@ public class TracedAspect {
     @Around("@annotation(tracedAnnotation) && execution(* *(..))")
     public Object around(ProceedingJoinPoint joinPoint, Traced tracedAnnotation) throws Throwable {
         String traceId = extractTraceId(joinPoint, tracedAnnotation);
-        try (Closeable ignored = traceProvider.trySet(traceId)) {
+        try (Closeable ignored = traceProvider.trySet(new Trace(traceId))) {
             return joinPoint.proceed();
         }
     }
 
     /**
-     * Extracts {@link Traced#parameter()} value into {@code traceId}.
+     * Extracts {@link Traced#parameter()} traceId into {@code traceId}.
      *
-     * @return {@code traceId} value or {@code null}.
+     * @return {@code traceId} traceId or {@code null}.
      */
     private String extractTraceId(ProceedingJoinPoint joinPoint, Traced tracedAnnotation) {
         Object[] args = joinPoint.getArgs();

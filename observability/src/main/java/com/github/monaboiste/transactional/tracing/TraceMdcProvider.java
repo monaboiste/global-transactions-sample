@@ -1,5 +1,6 @@
 package com.github.monaboiste.transactional.tracing;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -22,27 +23,27 @@ class TraceMdcProvider implements TraceProvider {
     }
 
     @Override
-    public String get() {
-        return MDC.get(TRACE_ID);
+    public Trace get() {
+        return new Trace(MDC.get(TRACE_ID));
     }
 
     @Override
-    public Closeable trySet(String traceId) {
-        String currentTraceId = get();
-        if (currentTraceId != null) {
+    public Closeable trySet(@NotNull Trace trace) {
+        Trace currentTrace = get();
+        if (!currentTrace.isEmpty()) {
             return new NoOpCloseable();
         }
 
         boolean generated = false;
-        if (traceId == null || traceId.isEmpty()) {
-            traceId = traceIdGenerator.generate();
+        if (trace.isEmpty()) {
+            trace = traceIdGenerator.generate();
             generated = true;
         }
         if (log.isDebugEnabled() && generated) {
-            log.debug("Generated new {} value - {}", TRACE_ID, traceId);
+            log.debug("Generated new {} traceId - {}", TRACE_ID, trace);
         }
 
-        return MDC.putCloseable(TRACE_ID, traceId);
+        return MDC.putCloseable(TRACE_ID, trace.traceId());
     }
 
     private static class NoOpCloseable implements Closeable {

@@ -31,29 +31,29 @@ class TracedAspectTest extends Specification {
         instance.tracedMethod("trace-001")
 
         then: "last registered trace is set to method parameter"
-        traceProvider.peekLastRegistered() == "trace-001"
+        traceProvider.peekLastRegistered().traceId() == "trace-001"
     }
 
     static class RetainingTraceProvider implements TraceProvider {
         private final TraceProvider delegate
-        private final ThreadLocal<Deque<String>> memory = ThreadLocal.withInitial(ArrayDeque::new) as ThreadLocal<Deque<String>>
+        private final ThreadLocal<Deque<Trace>> memory = ThreadLocal.withInitial(ArrayDeque::new) as ThreadLocal<Deque<Trace>>
 
         RetainingTraceProvider(final TraceProvider delegate) {
             this.delegate = delegate
         }
 
-        String peekLastRegistered() {
+        Trace peekLastRegistered() {
             return memory.get().peek()
         }
 
         @Override
-        String get() {
+        Trace get() {
             return delegate.get()
         }
 
         @Override
-        Closeable trySet(String traceId) {
-            Closeable closeable = delegate.trySet(traceId)
+        Closeable trySet(Trace trace) {
+            Closeable closeable = delegate.trySet(trace)
             this.memory.get().push(delegate.get())
             return closeable
         }

@@ -23,7 +23,7 @@ _and then, reimport the project into IntelliJ._
 #### Java/Groovy or any other JVM language, Spring
 
 - do not use wildcard imports, to customize Intellij go to: `Settings > Editor > Code Style > Java/Groovy > Imports`,
-  set `Class count to use import with '*'` value to `999` and `Names count to use import with '*'` to `999`
+  set `Class count to use import with '*'` traceId to `999` and `Names count to use import with '*'` to `999`
 - use `.properties` format when defining application properties - do not use `.yml` - it requires a custom handling,
   which gets complicated when you also count the Spring profiles 
 - prefix spring application libraries' properties file with `application-` - allows supporting project properties

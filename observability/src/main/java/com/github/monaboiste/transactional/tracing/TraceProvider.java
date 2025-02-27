@@ -4,6 +4,6 @@ import java.io.Closeable;
 
 public interface TraceProvider {
 
-    String get();
-    Closeable trySet(String traceId);
+    Trace get();
+    Closeable trySet(Trace trace);
 }
